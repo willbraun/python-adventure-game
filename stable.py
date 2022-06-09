@@ -17,7 +17,7 @@ def stable_loop():
                 print('\n' * 5)
                 print("You approach the horse, moving as quietly as you can. As you lift yourself onto the saddle you spook the horse, causing it to buck. The noise alerts the stable master, who is ready with his six-shooter. A few quick shots and you're dead.  Game Over. \nPress 1: to start over, \nPress 2: to exit  ")
                 if choice == "1":
-                        main()
+                        main.question()
                 else:
                     exit()
         break
