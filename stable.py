@@ -1,11 +1,12 @@
 from time import sleep
+import main
 
 def stable_loop():
     sleep(2)
     print('\n' * 5)
     print("You enter the stable. You see the stable master working, his back is turned")
     while True:
-        sleep(1)
+
         choice = input("Would you like to \n1: Speak to the stable master, or \n2: Steal his horse while he isn't looking?  ")
         if choice == "1":
                 sleep(2)
