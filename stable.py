@@ -1,6 +1,7 @@
 import main
+from time import sleep
 
-def stable_loop1():
+def stable_loop():
     print("You enter the stable. You see the stable master")
     while True:
 
