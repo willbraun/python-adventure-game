@@ -91,15 +91,14 @@ def sneaky_time():
                     continue
                 if choice_3 == '2':
                     print(clerk_spot)
-                    if clerk_spot == 'cleaning' or 'restocking':
-
+                    if not clerk_spot == 'at the register':
                         sleep(1)
                         print('\n' * 30)
                         print('You succeeded! You got the hat!')
                         inventory['misc'].append('Hat')
                         print(inventory['misc'])
                         continue
-                    elif clerk_spot == 'at the register':
+                    else:
                         sleep(1)
                         print('\n' * 30)
                         print('YOU GOT CAUGHT! The clerk kicked you out of the store')
@@ -114,7 +113,7 @@ def store_loop():
         print("""You walk inside of the store and take a quick look around. 
 It's quite cluttered on the inside, filled with equal amounts of junk and seemingly valuble items. 
 You are approached by the store clerk.""")
-        sleep(7)
+        sleep(1)
         print('\n' * 20)
         print('Clerk: "Hey there mister! How ya doing this fine day?"')
         print('\n')
