@@ -12,8 +12,8 @@ while True:
     if question == 1:
         saloon.saloon_loop()
     elif question == 2:
-        saloon.store_loop()
+        store.store_loop()
     elif question == 3:
-        saloon.stable_loop()
+        stable.stable_loop1()
     else:
         break
