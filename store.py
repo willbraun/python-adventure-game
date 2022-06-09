@@ -54,29 +54,58 @@ def sneaky_time():
     clerk = ['at the register', 'cleaning', 'restocking']
     player = ['the front of the store', 'the clothing aisle',
               'the food aisle', 'the makeup section']
-    player_spot = player[0]
-    while True:
+    sneaky = True
+    while sneaky:
         clerk_spot = random.choice(clerk)
+        player_spot = player[0]
+        print('\n' * 30)
         print(f'\nThe clerk is {clerk_spot}.')
         print(f'\nYou are at {player_spot}')
         choice = input(
-            '\nWhat would you like to do?\n1: Wait for one minute\n2. Wait for two minutes\n\n3. Go to clothing aisle\n4. Go to food aisle\n5. Go to makeup section\n\nChoice:')
+            '\nWhat would you like to do?\n1: Wait for one minute\n\n2. Go to clothing aisle\n3. Go to food aisle\n4. Go to makeup section\n\nChoice:')
         if choice == '1':
             sleep(2)
             print('\n' * 30)
             print('You wait for one minute...')
             sleep(5)
             continue
+
+        # when the player enters a new location they need to have different options of what they could
+        # possibly steal
+        # depending on what the clerk is doing, they can be successful in stealing or get caught
         if choice == '2':
-            sleep(2)
-            print('\n' * 30)
-            print('You wait for two minutes...')
-            sleep(10)
-            continue
-        if choice =='3':
             player_spot = player[1]
-            sleep(2)
-            print(f'You walked over to {player_spot}')
+            while True:
+                clerk_spot = random.choice(clerk)
+                sleep(2)
+                print('\n' * 30)
+                print(f'\nThe clerk is {clerk_spot}')
+                print(f'\nYou are now at {player_spot}')
+                choice_3 = input(
+                    '\nWhat would you like to do?\n1: Wait for one minute\n\n2. Steal a hat\n3. Steal a fancy belt\n4. Go back to the front\n\nChoice:')
+                if choice_3 == '1':
+                    sleep(1)
+                    print('\n' * 30)
+                    print('You wait for one minute..')
+                    sleep(5)
+                    continue
+                if choice_3 == '2':
+                    print(clerk_spot)
+                    if clerk_spot == 'cleaning' or 'restocking':
+
+                        sleep(1)
+                        print('\n' * 30)
+                        print('You succeeded! You got the hat!')
+                        inventory['misc'].append('Hat')
+                        print(inventory['misc'])
+                        continue
+                    elif clerk_spot == 'at the register':
+                        sleep(1)
+                        print('\n' * 30)
+                        print('YOU GOT CAUGHT! The clerk kicked you out of the store')
+                        sneaky = False
+                        break
+
 
 def store_loop():
     while True:
