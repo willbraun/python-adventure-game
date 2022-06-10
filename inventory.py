@@ -1,1 +1,1 @@
-inventory = { 'money': 0, 'disguise': None, 'misc': []}
+inventory = { 'money': 0, 'disguise': [], 'misc': []}
