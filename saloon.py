@@ -27,7 +27,7 @@ def bar():
 
 def order_drink():
     print('You go up to the bartender...')
-    drink = input('Bartenter - "Howdy, what can I get you?\n1: Beer\n2: Whiskey\n3: Margarita\n\nChoice: ')
+    drink = input('Bartenter - "Howdy, what can I get you?\"\n1: Beer\n2: Whiskey\n3: Margarita\n\nChoice: ')
     if drink == '1':
         print('\nYou guzzle your hipstery IPA down like a fish out of water.')
     elif drink == '2':
@@ -115,15 +115,55 @@ def old_man_question():
     return response
 
 def cloaked_woman():
-    print('cloaked woman')
-    # have woman ask who sent you, and deny you if it isn't George
-    # if it is, she will share that she can train you to count cards for a fee
-    # pay fee, and activate new mode in faro game where you can see the upcoming player card in a new color
-    # set mode as variable in this file
+    print("""\nCloaked woman - \"...um, do I know you? I won't speak to you unless someone referred you to me. Who sent you?\"""")
+    name = input("\nEnter name: ")
+    if name.strip().lower() == "george":
+        correct_name()
+    else:
+        print("\nCloaked woman - \"Hmm I don't know that person. I think you should leave.\" 🙂")
+
+def correct_name():
+    print("""\nCloaked woman - 
+    \"Oh, George sent you! Pardon me. I presume he sent you to learn how to count cards in faro. 
+    
+    We're old friends, he's jealous that I can still read the deck like a book.
+    
+    I can train you, but my services aren't free. 
+    
+    For $50, I promise that you'll be able to count cards and predict the cards that appear, BEFORE the dealer draws them.
+
+    What do you say?\"
+    """)
+    cloaked_woman_question()
+
+def cloaked_woman_question():
+    while True:
+        cloaked_woman_answer = input("\n1: Count me in! Here's $50\n2: No thanks, I'll try my luck.\n\nChoice: ")
+        if cloaked_woman_answer == '1':
+            pay_woman()
+            break
+        elif cloaked_woman_answer == '2':
+            print("\nCloaked woman - \"Alright, your loss! The offer is open if you change your mind.\"")
+            break
+        else:
+            print("\"Cloaked woman - I'm sorry, come again?\"")
+
+def pay_woman():
+    if inventory['money'] > 50:
+        inventory['money'] -= 50
+        training_session()
+    else:
+        print("\nCloaked woman - \"Sorry, no discounts today.\"")
+
+def training_session():
+    print("\nCloaked woman - Thank you very much, lets begin!")
+    print("\nThe woman pulls out a deck of cards and a pencil, and grabs a napkin from the bar. You spend the rest of the night and the following day sitting at the bar in intense study, since your wallet and freedom depend on it. You leave feeling like you can predict the future, and you can't wait to head to the faro table...")
+    global can_count_cards
+    can_count_cards = True
 
 
 
-
+# ADD COUNTING CARD MODE TO FARO GAME
 
 ### Faro table ###
 
