@@ -1,6 +1,8 @@
 from time import sleep
 from random import choice
-from general import inventory
+from general import *
+
+# Add description of bar and faro table for readers of file
 
 sleep_val = 2
 
@@ -17,7 +19,7 @@ def saloon_loop():
         else:
             print("Sorry, didn't catch that")
 
-# Bar
+### Bar ###
 
 def bar():
     order_drink()
@@ -55,7 +57,7 @@ def chat_with_stranger():
 
 def town_drunk():
     print("""\nTown drunk - \"Well howwwwdy-do to you! You look pretty beat up, and I know that from experience. Been kicked out of this bar many-a-time -- they only let me back in since I'm a good customer. Want to hear how I got kicked out last time?\"""")
-    town_drunk_q1()
+    town_drunk_question()
     print("""
     \"So the story begins a week ago. Or was it last night? I can't remember. 
 
@@ -70,7 +72,7 @@ def town_drunk():
     If only there were some way to know what cards are coming so I could make the correct bet...\"
 """)
 
-def town_drunk_q1():
+def town_drunk_question():
     town_drunk_answer = input("\n1: Sure!\n2: Not today\n\nChoice: ")
     if town_drunk_answer == '2':
         print("Town drunk - Oh sure ya do, I'll tell you anyway")
@@ -79,18 +81,51 @@ def town_drunk_q1():
 
 def old_man():
     print("""\nOld man - 
-    \"Say, you must be new in town. I've seen just about everyone west of the Mississippi pass through this here saloon, I reckon.\nI see you eyeing that faro table. I used to be a decent player myself, but I'm not as sharp as I once was. There is some skill to it, you know.\"
+    \"Say, you must be new in town. I've seen just about everyone west of the Mississippi pass through this here saloon, I reckon.
+    
+    I see you eyeing that faro table. I used to be a decent player myself, but I'm not as sharp as I once was. 
+    
+    There's skill to it, you know. Want to know the secret?\"
     """)
+    if old_man_question():
+        print(f"""\nOld man - 
+    \"Excellent! Now don't go off and share this, I'm only telling you this since you look like you could use a few bucks.
+    
+    Faro is all about card-counting. You must keep track of what's played to predict the future.
 
+    That cloaked woman in the corner, she's real quiet but she's the best card-counter I've ever seen.
+
+    My name is {set_color('George', green)}, tell her I sent you. I bet she has some good tips.
+    \"
+    """)
+    else:
+        print("\nOld man - \"Well that's too bad, I thought you'd be interested.\"")
+
+def old_man_question():
+    response = True
+    while True:
+        old_man_answer = input("\n1: I'm dying to hear it!\n2: Psh, I've got this.\n\nChoice: ")
+        if old_man_answer == '1':
+            break
+        elif old_man_answer == '2':
+            response = False
+            break
+        else:
+            print("\nOld man - \"I can never understand the slang of the youth... come again?\"")
+    return response
 
 def cloaked_woman():
     print('cloaked woman')
+    # have woman ask who sent you, and deny you if it isn't George
+    # if it is, she will share that she can train you to count cards for a fee
+    # pay fee, and activate new mode in faro game where you can see the upcoming player card in a new color
+    # set mode as variable in this file
 
 
 
 
 
-# Faro table
+### Faro table ###
 
 def faro_table():
     print("""\nYou take a seat at the faro table. It's a quiet day so it's just you and the dealer.
