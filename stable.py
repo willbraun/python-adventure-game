@@ -60,43 +60,43 @@ def stable_loop():
                         print("That's not a choice")
         
 
-def stable_loop2():
-        if "The Disguise Kit" in inventory["disguise"]:
-            sleep(5)
-            print('\n' * 20)
-            print("You enter the stable. The stable master sees you and approaches.")
-            sleep(5)
-            print("\n"*5)
-            print("'Well, I've never seen you around here before.  You must be new in town. How can I help you?'")
-            while True:
+if "The Disguise Kit" in inventory["disguise"]:
+    def stable_loop2():
                 sleep(5)
-                print("\n"*3)
-                print("'I need a ticket for the first stagecoach leaving town.'")
-                sleep(5)
-                print("\n"*3)
-                print("'Leaving so soon? Can't say I blame you. It'll be $10'")
-                sleep(5)
-                print("\n"*3)
-                print("'I don't have $10...'")
+                print('\n' * 20)
+                print("You enter the stable. The stable master sees you and approaches.")
                 sleep(5)
                 print("\n"*5)
-                gamble = input("Would you like to\n 1: Gamble, or \n 2: Beg: ")
-                if gamble == "1":
+                print("'Well, I've never seen you around here before.  You must be new in town. How can I help you?'")
+                while True:
                     sleep(5)
                     print("\n"*3)
-                    print("Are you a gamblin' man?")
+                    print("'I need a ticket for the first stagecoach leaving town.'")
                     sleep(5)
                     print("\n"*3)
-                    print("Why yes I am. An' I know just the game we can play...")
-                else:
-                    sleep(10)
+                    print("'Leaving so soon? Can't say I blame you. It'll be $10'")
+                    sleep(5)
+                    print("\n"*3)
+                    print("'I don't have $10...'")
+                    sleep(5)
                     print("\n"*5)
-                    print("... I ... I really need this ticket. I'm not a begging man typically but today I am.  Please, find it in your heart to help me out.")
-                    sleep(10)
-                    print("\n"*5)
-                    print("'Quit yer blubberin'. What if made a wager. If you win you get yer ticket, if I win ...")
-                    break 
-                # change break to conitinue when finihsed with game
+                    gamble = input("Would you like to\n 1: Gamble, or \n 2: Beg: ")
+                    if gamble == "1":
+                        sleep(5)
+                        print("\n"*3)
+                        print("Are you a gamblin' man?")
+                        sleep(5)
+                        print("\n"*3)
+                        print("Why yes I am. An' I know just the game we can play...")
+                    else:
+                        sleep(10)
+                        print("\n"*5)
+                        print("... I ... I really need this ticket. I'm not a begging man typically but today I am.  Please, find it in your heart to help me out.")
+                        sleep(10)
+                        print("\n"*5)
+                        print("'Quit yer blubberin'. What if made a wager. If you win you get yer ticket, if I win ...")
+                        break 
+                    # change break to conitinue when finihsed with game
 
 
 def game():
