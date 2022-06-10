@@ -84,6 +84,8 @@ def fight_time():
             clerk_move()
 
         if your_health <= 0:
+            inventory['misc'] = []
+            inventory['disguise'] = []
             sleep(1)
             print('\n' * 30)
             print('You LOST. The clerk throws you out of his store...')
@@ -116,7 +118,7 @@ def ask_clerk():
             sleep(2)
             print('\n' * 20)
             print('Clerk: "I mean, if you really really want one of those, we\'ve got em. But it\'s gonna cost ya."')
-            sleep(2)
+            sleep(2.5)
             print(
                 '\nThe clerk walks to the back of the store and disappears for a minute or two...')
             sleep(5)
@@ -126,6 +128,7 @@ def ask_clerk():
                 '\nClerk: Here is what we have. I\'m asking a fair bit, at 300 gold. Take it or leave it.')
             print('\n')
             print(f'Money: {inventory["money"]}')
+            sleep(2)
             if not inventory['money'] >= 300:
                 print(
                     'You don\'t have enough money! You thank the clerk for his time and walk back to the town square.')
@@ -146,15 +149,16 @@ def ask_clerk():
                     break
                     
         if ask_choice == '2':
-            sleep(1)
+            sleep(2)
             print('\n' * 30)
             print('Clerk: "Well then, we\'ve got this nicely outfitted cosmetic section over here if you would like to have a look at the items."')
-            sleep(1)
+            sleep(2.5)
             print('\n' * 30)
             print('You immediately see in the makeup section of the store ✨ THE DISGUISE KIT ✨\nYou hold up the kit to the clerk and ask,\n"How much for this thing?"')
-            sleep(1)
+            sleep(3)
             print('\n' * 30)
             print('Clerk: Well, those things are pretty hard to come by nowadays. I\'d sell that to ya for 250 Gold...')
+            sleep(2)
             if not inventory['money'] >= 250:
                 print('You don\'t have enough money! You thank the clerk for his time and walk back to the town square.')
                 sleep(2)
@@ -179,13 +183,13 @@ def ask_clerk():
             sleep(2)
             print('\n' * 30)
             print('Clerk: "You... You what????"')
-            sleep(1)
+            sleep(2)
             print('\n' * 30)
             print('You deck the clerk square in the jaw and send him flying to the ground!')
-            sleep(1)
+            sleep(2.5)
             print('\n' * 30)
             print('To your surprise, he leaps back on his feet with blinding speed and raises his fists in some kind of foreign fighting stance.\nYou raise your fists and stare into his eyes menacingly...')
-            sleep(2)
+            sleep(3)
             fight_time()
             break
 
@@ -204,7 +208,7 @@ def sneaky_time():
         print(f'\nThe clerk is {clerk_spot}.')
         print(f'\nYou are at {player_spot}')
         choice = input(
-            '\nWhat would you like to do?\n1: Wait for one minute\n\n2. Go to clothing aisle\n3. Go to food aisle\n4. Go to makeup section\n\nChoice:')
+            '\nWhat would you like to do?\n1: Wait for one minute\n\n2. Go to clothing aisle\n3. Go to food aisle\n4. Go to makeup section\n5. Leave\n\nChoice:')
         if choice == '1':
             sleep(2)
             print('\n' * 30)
@@ -344,6 +348,8 @@ def sneaky_time():
                     print('\n' * 30)
                     print('You walk back to the front of the store.')
                     break
+        if choice == '5':
+            break
 
 
 def store_loop():
@@ -353,7 +359,7 @@ def store_loop():
         print("""You walk inside of the store and take a quick look around. 
 It's quite cluttered on the inside, filled with equal amounts of junk and seemingly valuble items. 
 You are approached by the store clerk.""")
-        sleep(1)
+        sleep(4)
         print('\n' * 20)
         print('Clerk: "Hey there mister! How ya doing this fine day?"')
         print('\n')
