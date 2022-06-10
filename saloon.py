@@ -1,12 +1,13 @@
 from time import sleep
 from random import shuffle
+from inventory import inventory
 
 sleep_val = 1
 
 def saloon_loop():
     print("\nYou enter the saloon and look around. It reeks of smoke and booze.")
     while True:
-        where_to_go = input("Where do you want to go?\n1: Bar\n2: Faro table\n3: Back to town square:\n\nChoice: ")
+        where_to_go = input("Where do you want to go?\n1: Bar\n2: Faro table\n3: Back to town square\n\nChoice: ")
         if where_to_go == '1':
             bar()
         elif where_to_go == '2':
@@ -39,17 +40,17 @@ def faro_table():
     play_faro()
 
 def hear_rules():
-    option = input("\n1: Sure! I'm a little rusty.\n2: No thanks, I know what I'm doing\n\nChoice: ")
+    option = input("\n1: Sure! I'm a little rusty.\n2: No thanks, I know what I'm doing.\n\nChoice: ")
     if option == '1':
         print("""\nDealer - Splendid! Here are the rules.\n
         You may place bets on any card value for ace, 2, all the way to king
         You can place multiple bets at a time!
         For the first turn, I will burn a card from the deck and show it face up.
-        Then for every turn afterwards, I will then draw two cards from the deck.
+        Then, for every turn afterwards, I will draw two cards from the deck.
         First is the dealer card. If it has the same value as one you have money on, you lose that bet.
         Second is the player's card. If you have bet on this number, you win the bet! 
-        If an unrelated card is drawn, your bet stays.
-        If both cards that are drawn are the same, you lose half of your bet. 
+        If both cards are the same, you lose half of your bet.
+        If any other card is drawn, your bet stays on the table.
         \nGot it? Great!
         """)
     elif option == '2':
@@ -59,15 +60,19 @@ def play_faro():
     card_values = ('A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K')
     deck = create_deck(card_values)
     table = dict.fromkeys(card_values, 0)
+    display_table(table)
 
     burn_card(deck)
 
+    # put whole game from here down in loop so you can play through game
     place_all_bets(table)
-    
-    # Deal dealer and player cards
+    display_table(table)
 
-    # Win, lose, or split bets
+    [dealer, player] = deal_cards(deck)
+    handle_money(dealer, player, table)
+    display_table(table)
 
+    # when you get to the end of the deck, force cashout so dealer can reshuffle
 
     
 def create_deck(card_values):
@@ -91,37 +96,43 @@ def place_bet_card(table):
             print("\nWe don't have that card here, try again")
             continue
         break
-    return card
+    return card  
 
 def place_bet_amount(table):
     while True:
-        amount = input("\nHow much money do you wager? Enter a number\n\nAmount: ")
+        amount = input(f"\nHow much money do you wager? Enter a number.\n(Current net worth: {inventory['money']})\n\nAmount: ")
         
         try:
-            number = float(amount)
+            amount_number = int(amount)
         except:
-            print("\nDealer - \"Sorry, I didn't catch that.\"")
-            continue
+            try:
+                amount_number = float(amount)
+            except:
+                print("\nDealer - \"Sorry, I didn't catch that.\"")
+                continue
         
-        if number <= 0:
-            print("\nDealer - \"Aren't you funny! Positive numbers only please.")
+        if amount_number <= 0:
+            print("\nDealer - \"Aren't you funny! Positive numbers only please.\"")
+            continue
+
+        if amount_number > inventory['money']:
+            print("\nDealer - \"You don't have enough money for that.\"")
             continue
         break
-
-    # Check that you have enough money
-    return amount
+    return amount_number
 
 def display_table(table):
-    print('\n')
+    print('\n---------- Faro Table ----------')
     print(*table.keys())
     print(*table.values())
+    print('--------------------------------')
     # Format more nicely with table import
 
 def place_bet(table):
     card = place_bet_card(table)
     amount = place_bet_amount(table)
-    table[card] = amount
-    display_table(table)
+    table[card] += amount
+    inventory['money'] -= amount
 
 def place_all_bets(table):
     while True:
@@ -133,3 +144,22 @@ def place_all_bets(table):
             break
         else:
             print("\nDealer - \"Sorry, I didn't catch that.\"")
+
+def deal_cards(deck):
+    dealer = draw_card(deck)
+    player = draw_card(deck)
+    
+    print(f'\nDealer card: {dealer}\nPlayer card: {player}')
+
+    return [dealer, player]
+
+def handle_money(dealer, player, table):
+    if dealer == player:
+        table[player] *= 0.5
+        return
+    table[dealer] = 0
+    table[player] *= 2
+
+# cash out on all values function
+
+# function to color loss red, half loss yellow, and win green with background AND text color
