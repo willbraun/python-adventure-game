@@ -1,5 +1,5 @@
 from time import sleep
-from random import shuffle
+from random import choice
 from inventory import inventory
 
 sleep_val = 1
@@ -7,7 +7,7 @@ sleep_val = 1
 def saloon_loop():
     print("\nYou enter the saloon and look around. It reeks of smoke and booze.")
     while True:
-        where_to_go = input("Where do you want to go?\n1: Bar\n2: Faro table\n3: Back to town square\n\nChoice: ")
+        where_to_go = input("\nWhere do you want to go?\n1: Bar\n2: Faro table\n3: Back to town square\n\nChoice: ")
         if where_to_go == '1':
             bar()
         elif where_to_go == '2':
@@ -58,47 +58,25 @@ def hear_rules():
 
 def play_faro():
     card_values = ('A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K')
-    deck = create_deck(card_values)
     table = dict.fromkeys(card_values, 0)
     display_table(table)
 
-    burn_card(deck)
-
-    # put whole game from here down in loop so you can play through game
+    burn_card(card_values)
     place_all_bets(table)
     while True: 
         display_table(table)
-        [dealer, player] = deal_cards(deck)
+        [dealer, player] = deal_cards(card_values)
         handle_money(dealer, player, table)
         display_table(table)
 
-        play_again = input('1: Place another bet\n2: Let dealer deal\n3: Cash out\n\nChoice: ')
-        if play_again == '1':
-            place_all_bets(table)
-            continue
-        elif play_again == '2':
-            continue
-        elif play_again == '3':
-            cash_out(table)
+        if not next_round(table):
             break
-        else:
-            print('\nInvalid input')
 
-    # when you get to the end of the deck, force cashout so dealer can reshuffle
+def draw_card(cards):
+    return choice(cards)
 
-    
-def create_deck(card_values):
-    deck = []
-    for _ in range(4):
-        deck.extend(card_values)
-    shuffle(deck)
-    return deck
-
-def draw_card(deck):
-    return deck.pop()
-
-def burn_card(deck):
-    print(f'\nBurned card: {draw_card(deck)}')
+def burn_card(cards):
+    print(f'\nBurned card: {draw_card(cards)}')
 
 def place_bet_card(table):
     while True:
@@ -146,24 +124,22 @@ def place_bet(table):
     table[card] += amount
     inventory['money'] -= amount
 
-
-# place all bets in a row, then click a key to be done with it
 def place_all_bets(table):
     while inventory['money'] > 0:
         place_bet(table)
         if not inventory['money'] > 0:
             break
         another = input("\nPlace another bet?\n1: Yes\n2: No\n\nChoice: ")
-        if another.strip().lower() == '1':
+        if another.strip() == '1':
             continue
-        elif another.strip().lower() == '2':
+        elif another.strip() == '2':
             break
         else:
             print("\nInvalid input")
 
-def deal_cards(deck):
-    dealer = draw_card(deck)
-    player = draw_card(deck)
+def deal_cards(cards):
+    dealer = draw_card(cards)
+    player = draw_card(cards)
     print(f'\nDealer card: {dealer}\nPlayer card: {player}')
 
     return [dealer, player]
@@ -176,16 +152,32 @@ def handle_money(dealer, player, table):
     table[dealer] = 0
     table[player] *= 2
 
-# cash out on all values function
-def cash_out(table):
-    inventory['money'] += sum(table.values())
-    print(f"\nYour net worth is now: {inventory['money']}")
-
 def try_int(num):
     try:
         num = int(num)
     except:
         pass
     return num
+
+def cash_out(table):
+    inventory['money'] += sum(table.values())
+    print(f"\nYour net worth is now {inventory['money']}")
+
+def next_round(table):
+    play_on = True
+    while True:
+        play_again = input('1: Place another bet\n2: Let dealer deal\n3: Cash out\n\nChoice: ')
+        if play_again == '1':
+            place_all_bets(table)
+            break
+        elif play_again == '2':
+            break
+        elif play_again == '3':
+            cash_out(table)
+            play_on = False
+            break
+        else:
+            print('\nInvalid input')
+    return play_on
 
 # function to color loss red, half loss yellow, and win green with background AND text color
