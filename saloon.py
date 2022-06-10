@@ -66,11 +66,23 @@ def play_faro():
 
     # put whole game from here down in loop so you can play through game
     place_all_bets(table)
-    display_table(table)
+    while True: 
+        display_table(table)
+        [dealer, player] = deal_cards(deck)
+        handle_money(dealer, player, table)
+        display_table(table)
 
-    [dealer, player] = deal_cards(deck)
-    handle_money(dealer, player, table)
-    display_table(table)
+        play_again = input('1: Place another bet\n2: Let dealer deal\n3: Cash out\n\nChoice: ')
+        if play_again == '1':
+            place_all_bets(table)
+            continue
+        elif play_again == '2':
+            continue
+        elif play_again == '3':
+            cash_out(table)
+            break
+        else:
+            print('\nInvalid input')
 
     # when you get to the end of the deck, force cashout so dealer can reshuffle
 
@@ -134,32 +146,46 @@ def place_bet(table):
     table[card] += amount
     inventory['money'] -= amount
 
+
+# place all bets in a row, then click a key to be done with it
 def place_all_bets(table):
-    while True:
+    while inventory['money'] > 0:
         place_bet(table)
-        another = input("\nDealer - \"Place another bet?\"\n1: Yes\n2: No\n\nChoice: ")
+        if not inventory['money'] > 0:
+            break
+        another = input("\nPlace another bet?\n1: Yes\n2: No\n\nChoice: ")
         if another.strip().lower() == '1':
             continue
         elif another.strip().lower() == '2':
             break
         else:
-            print("\nDealer - \"Sorry, I didn't catch that.\"")
+            print("\nInvalid input")
 
 def deal_cards(deck):
     dealer = draw_card(deck)
     player = draw_card(deck)
-    
     print(f'\nDealer card: {dealer}\nPlayer card: {player}')
 
     return [dealer, player]
 
 def handle_money(dealer, player, table):
     if dealer == player:
-        table[player] *= 0.5
+        table[player] = try_int(table[player] * 0.5)
         return
+    
     table[dealer] = 0
     table[player] *= 2
 
 # cash out on all values function
+def cash_out(table):
+    inventory['money'] += sum(table.values())
+    print(f"\nYour net worth is now: {inventory['money']}")
+
+def try_int(num):
+    try:
+        num = int(num)
+    except:
+        pass
+    return num
 
 # function to color loss red, half loss yellow, and win green with background AND text color
