@@ -2,7 +2,7 @@ from time import sleep
 from random import choice
 from inventory import inventory
 
-sleep_val = 1
+sleep_val = 2
 
 def saloon_loop():
     print("\nYou enter the saloon and look around. It reeks of smoke and booze.")
@@ -127,6 +127,7 @@ def place_bet(table):
 def place_all_bets(table):
     while inventory['money'] > 0:
         place_bet(table)
+        display_table(table)
         if not inventory['money'] > 0:
             break
         another = input("\nPlace another bet?\n1: Yes\n2: No\n\nChoice: ")
@@ -140,7 +141,11 @@ def place_all_bets(table):
 def deal_cards(cards):
     dealer = draw_card(cards)
     player = draw_card(cards)
-    print(f'\nDealer card: {dealer}\nPlayer card: {player}')
+    sleep(sleep_val)
+    print(f'\nDealer card: {dealer}')
+    sleep(sleep_val)
+    print(f'Player card: {player}')
+    sleep(sleep_val)
 
     return [dealer, player]
 
