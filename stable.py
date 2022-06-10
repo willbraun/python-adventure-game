@@ -58,10 +58,7 @@ def stable_loop():
                         exit()
                     else:
                         print("That's not a choice")
-        
-
-if "The Disguise Kit" in inventory["disguise"]:
-    def stable_loop2():
+    else:    
                 sleep(5)
                 print('\n' * 20)
                 print("You enter the stable. The stable master sees you and approaches.")
@@ -80,7 +77,7 @@ if "The Disguise Kit" in inventory["disguise"]:
                     print("'I don't have $10...'")
                     sleep(5)
                     print("\n"*5)
-                    gamble = input("Would you like to\n 1: Gamble, or \n 2: Beg: ")
+                    gamble = input("Would you like to\n 1: Make a wager\n 2: Beg: ")
                     if gamble == "1":
                         sleep(5)
                         print("\n"*3)
@@ -88,6 +85,7 @@ if "The Disguise Kit" in inventory["disguise"]:
                         sleep(5)
                         print("\n"*3)
                         print("Why yes I am. An' I know just the game we can play...")
+                        break
                     else:
                         sleep(10)
                         print("\n"*5)
@@ -96,7 +94,7 @@ if "The Disguise Kit" in inventory["disguise"]:
                         print("\n"*5)
                         print("'Quit yer blubberin'. What if made a wager. If you win you get yer ticket, if I win ...")
                         break 
-                    # change break to conitinue when finihsed with game
+                    # change breaks to conitinue when finihsed with game
 
 
 def game():
