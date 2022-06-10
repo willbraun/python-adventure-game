@@ -53,13 +53,11 @@ def chat_with_stranger():
         else:
             print("That person isn't here.")
 
-
-
 def town_drunk():
     print("""\nTown drunk - \"Well howwwwdy-do to you! You look pretty beat up, and I know that from experience. Been kicked out of this bar many-a-time -- they only let me back in since I'm a good customer. Want to hear how I got kicked out last time?\"""")
     town_drunk_q1()
     print("""
-    So the story begins a week ago. Or was it last night? I can't remember. 
+    \"So the story begins a week ago. Or was it last night? I can't remember. 
 
     Anyway, I order my rye and head straight to the faro table, and finish it before I sit down.
 
@@ -69,7 +67,7 @@ def town_drunk():
 
     Faro is a fickle game, I love it but I know I'll be broke soon. I robbed a bank when I was a young man but my funds are dwindling. 
 
-    If only there were some way to know what cards are coming so I could make the correct bet...
+    If only there were some way to know what cards are coming so I could make the correct bet...\"
 """)
 
 def town_drunk_q1():
@@ -80,7 +78,10 @@ def town_drunk_q1():
         print("Town drunk - Yippee!")
 
 def old_man():
-    print('old man')
+    print("""\nOld man - 
+    \"Say, you must be new in town. I've seen just about everyone west of the Mississippi pass through this here saloon, I reckon.\nI see you eyeing that faro table. I used to be a decent player myself, but I'm not as sharp as I once was. There is some skill to it, you know.\"
+    """)
+
 
 def cloaked_woman():
     print('cloaked woman')
