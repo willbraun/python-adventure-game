@@ -57,7 +57,7 @@ def fight_time():
     while True:
         sleep(2)
         print('\n' * 10)
-        print(f'\n{red("FIGHT")}\n')
+        print(f'\n{set_color("FIGHT", red)}\n')
         print(f"Your health: {your_health}")
         print('\n' * 5)
         print(f"Clerk's health: {clerk_health}")
@@ -95,16 +95,11 @@ def fight_time():
             inventory['money'] += 500
             sleep(1)
             print('\n' * 30)
+            print(f'You have {inventory["money"]} gold')
             print('YOU WON!!! You take the disguise kit as your reward and all of the clerk\'s money.\nYou walk back to the town square...')
             break
         else:
             continue
-
-
-            
-
-
-
 
 
 def ask_clerk():
@@ -135,6 +130,7 @@ def ask_clerk():
                 sleep(2)
                 break
             else:
+                print(f'You have {inventory["money"]} gold')
                 buy_expensive_kit = input('Buy this disguise kit for 300 gold?:\n1. Yes\n2. No\n\nChoice:')
                 if buy_expensive_kit == '1':
                     inventory['money'] -= 300
@@ -155,15 +151,16 @@ def ask_clerk():
             sleep(2.5)
             print('\n' * 30)
             print('You immediately see in the makeup section of the store ✨ THE DISGUISE KIT ✨\nYou hold up the kit to the clerk and ask,\n"How much for this thing?"')
-            sleep(3)
+            sleep(4)
             print('\n' * 30)
             print('Clerk: Well, those things are pretty hard to come by nowadays. I\'d sell that to ya for 250 Gold...')
-            sleep(2)
+            sleep(3)
             if not inventory['money'] >= 250:
                 print('You don\'t have enough money! You thank the clerk for his time and walk back to the town square.')
                 sleep(2)
                 break
             else: 
+                print(f'You have {inventory["money"]} gold')
                 buy_kit = input('Buy this disguise kit for 250 gold?:\n1. Yes\n2. No\n\nChoice:')
                 if buy_kit == '1':
                     inventory['money'] -= 250
@@ -186,10 +183,10 @@ def ask_clerk():
             sleep(2)
             print('\n' * 30)
             print('You deck the clerk square in the jaw and send him flying to the ground!')
-            sleep(2.5)
+            sleep(3)
             print('\n' * 30)
             print('To your surprise, he leaps back on his feet with blinding speed and raises his fists in some kind of foreign fighting stance.\nYou raise your fists and stare into his eyes menacingly...')
-            sleep(3)
+            sleep(3.5)
             fight_time()
             break
 
@@ -202,13 +199,15 @@ def sneaky_time():
     sneaky = True
     while sneaky:
         sneaky = True
+        print(f'\n✨{set_color("SNEAKY TIME", yellow)}✨')
         clerk_spot = random.choice(clerk)
         player_spot = player[0]
-        print('\n' * 30)
+        print('Sneaky time gives you an opportunity to steal things.\nYou can only steal when the clerk is busy.\nIf he is cleaning or restocking, he\'s not paying any attention to you...')
+        print('\n' * 5)
         print(f'\nThe clerk is {clerk_spot}.')
         print(f'\nYou are at {player_spot}')
         choice = input(
-            '\nWhat would you like to do?\n1: Wait for one minute\n\n2. Go to clothing aisle\n3. Go to food aisle\n4. Go to makeup section\n5. Leave\n\nChoice:')
+            '\nWhat would you like to do?\n1: Wait for one minute\n2. Go to clothing aisle\n3. Go to food aisle\n4. Go to makeup section\n5. Leave\n\nChoice:')
         if choice == '1':
             sleep(2)
             print('\n' * 30)
@@ -224,11 +223,11 @@ def sneaky_time():
             while True:
                 clerk_spot = random.choice(clerk)
                 sleep(2)
-                print('\n' * 30)
+                print('\n' * 20)
                 print(f'\nThe clerk is {clerk_spot}')
                 print(f'\nYou are now at {player_spot}')
                 choice_2 = input(
-                    '\nWhat would you like to do?\n1: Wait for one minute\n\n2. Steal a hat\n3. Steal a fancy belt\n4. Go back to the front\n\nChoice:')
+                    '\nWhat would you like to do?\n1: Wait for one minute\n2. Steal a hat\n3. Steal a fancy belt\n4. Go back to the front\n\nChoice:')
                 if choice_2 == '1':
                     sleep(1)
                     print('\n' * 30)
@@ -241,7 +240,7 @@ def sneaky_time():
                         print('\n' * 30)
                         print('You succeeded! You got the hat!')
                         inventory['misc'].append('hat')
-                        print(inventory['misc'])
+                        print(f' Your Inventory: {", ".join(inventory["misc"])}')
                         continue
                     else:
                         get_caught()
@@ -252,7 +251,7 @@ def sneaky_time():
                         print('\n' * 30)
                         print('You succeeded! You got the fancy belt!')
                         inventory['misc'].append('Fancy belt')
-                        print(inventory['misc'])
+                        print(f' Your Inventory: {", ".join(inventory["misc"])}')
                         continue
                     else:
                         get_caught()
@@ -271,7 +270,7 @@ def sneaky_time():
                 print(f'\nThe clerk is {clerk_spot}')
                 print(f'\nYou are now at {player_spot}')
                 choice_3 = input(
-                    '\nWhat would you like to do?\n1: Wait for one minute\n\n2. Steal some biscuits\n3. Steal some horse treats\n4. Go back to the front\n\nChoice:')
+                    '\nWhat would you like to do?\n1: Wait for one minute\n2. Steal some biscuits\n3. Steal some horse treats\n4. Go back to the front\n\nChoice:')
                 if choice_3 == '1':
                     sleep(1)
                     print('\n' * 30)
@@ -284,7 +283,7 @@ def sneaky_time():
                         print('\n' * 30)
                         print('You succeeded! You got the biscuits!')
                         inventory['misc'].append('biscuits')
-                        print(inventory['misc'])
+                        print(f' Your Inventory: {", ".join(inventory["misc"])}')
                         continue
                     else:
                         get_caught()
@@ -295,7 +294,7 @@ def sneaky_time():
                         print('\n' * 30)
                         print('You succeeded! You got the horse treats!')
                         inventory['misc'].append('horse treats')
-                        print(inventory['misc'])
+                        print(f' Your Inventory: {", ".join(inventory["misc"])}')
                         continue
                     else:
                         get_caught()
@@ -314,7 +313,7 @@ def sneaky_time():
                 print(f'\nThe clerk is {clerk_spot}')
                 print(f'\nYou are now at {player_spot}')
                 choice_4 = input(
-                    '\nWhat would you like to do?\n1: Wait for one minute\n\n2. Steal some lipstick\n3. Steal The Disguise Kit\n4. Go back to the front\n\nChoice:')
+                    '\nWhat would you like to do?\n1: Wait for one minute\n2. Steal some lipstick\n3. Steal The Disguise Kit\n4. Go back to the front\n\nChoice:')
                 if choice_4 == '1':
                     sleep(1)
                     print('\n' * 30)
@@ -327,7 +326,7 @@ def sneaky_time():
                         print('\n' * 30)
                         print('You succeeded! You got the lipstick!')
                         inventory['misc'].append('liptstick')
-                        print(inventory['misc'])
+                        print(f' Your Inventory: {", ".join(inventory["misc"])}')
                         continue
                     else:
                         get_caught()
@@ -338,7 +337,7 @@ def sneaky_time():
                         print('\n' * 30)
                         print('You succeeded! You got The Disguise Kit!')
                         inventory['disguise'].append('The Disguise Kit')
-                        print(inventory['disguise'])
+                        print(f' Your Inventory: {", ".join(inventory["disguise"])}')
                         continue
                     else:
                         get_caught()
@@ -359,7 +358,7 @@ def store_loop():
         print("""You walk inside of the store and take a quick look around. 
 It's quite cluttered on the inside, filled with equal amounts of junk and seemingly valuble items. 
 You are approached by the store clerk.""")
-        sleep(4)
+        sleep(6)
         print('\n' * 20)
         print('Clerk: "Hey there mister! How ya doing this fine day?"')
         print('\n')
@@ -388,7 +387,7 @@ From food to clothes to guns to saddles, we have it all.'""")
             print('Clerk: "Huh, well if you ever need anything just ask me."')
             print(
                 'The clerk walks away from you and starts minding his own business.')
-            sleep(2)
+            sleep(3.5)
             sneaky_time()
             break
         if converse_choice == '4':
