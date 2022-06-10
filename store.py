@@ -192,7 +192,7 @@ def ask_clerk():
 
 def sneaky_time():
     global sneaky
-    clerk = ['at the register, looking around', 'wandering about, bored out of his mind', 'busy cleaning', ' busy restocking']
+    clerk = ['at the register, looking around', 'wandering about, bored out of his mind', 'busy cleaning', 'busy restocking']
     player = ['the front of the store', 'the clothing aisle',
               'the food aisle', 'the makeup section']
     sneaky = True
