@@ -1,4 +1,5 @@
 from time import sleep
+import random
 
 def stable_loop():
     sleep(2)
@@ -24,7 +25,7 @@ def stable_loop():
                 elif start_again == "2":
                     exit()
                 else:
-                    print("Press 1: to start over, \nPress 2: to exit")
+                    print("That's not a choice")
         
 
 def stable_loop2():
@@ -40,8 +41,36 @@ def stable_loop2():
             print("Leaving so soon? Can't say I blame you. It'll be $10")
             sleep(2)
             print("I don't have $10...")
-            choice = input("Would you like to\n 1: Beg, or \n 2: Gamble")
-            if choice == "1":
-                print("... I ... I really need this ticket. I'm not a begging man typically but today I am.  Please, find it in your heart to help me out.")
+            gamble = input("Would you like to\n 1: Gamble, or \n 2: Beg")
+            if gamble == "1":
+                print("Are you a gamblin' man?")
+                print("Why yes I am. I gotta game we can play.")
             else:
-                print("Are you a gambling man?")
+                print("... I ... I really need this ticket. I'm not a begging man typically but today I am.  Please, find it in your heart to help me out.")
+                print("'Quit yer blubberin'. What if made a wager. If you win you get yer ticket, if I win ...")
+                continue
+
+def cointoss():
+    while True:
+        guess = input("Press 1 for 'heads'\nPress 2 for 'tails': ")
+        if(guess == "1"):
+            print("\n 'I choose heads'")
+        elif(guess == "2"):
+            print("\n 'I choose tails.'")
+        else:
+            print("\n'That ain't no choice!!'")
+        flip = random.choice(["1", "2"])
+        
+        if(flip == "1"):
+                sleep(2)
+                print("The coin hits the ground - on heads")
+        else:
+                sleep(2)
+                print("The coin hits the ground - on tails")
+        
+        if(flip == guess):
+                sleep(2)
+                print("'Fine... you win, you go first.'")
+        else:
+                sleep(2)
+                print("'Ha! Not off to a good start, are you? I'll go first.'")
