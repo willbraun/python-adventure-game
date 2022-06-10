@@ -62,15 +62,13 @@ def play_faro():
 
     burn_card(deck)
 
-    place_bet(table)
-
-    # Put in loop so player can make multiple bets
-
+    place_all_bets(table)
+    
     # Deal dealer and player cards
 
     # Win, lose, or split bets
 
-    
+
     
 def create_deck(card_values):
     deck = []
@@ -109,9 +107,29 @@ def place_bet_amount(table):
             print("\nDealer - \"Aren't you funny! Positive numbers only please.")
             continue
         break
+
+    # Check that you have enough money
     return amount
+
+def display_table(table):
+    print('\n')
+    print(*table.keys())
+    print(*table.values())
+    # Format more nicely with table import
 
 def place_bet(table):
     card = place_bet_card(table)
     amount = place_bet_amount(table)
     table[card] = amount
+    display_table(table)
+
+def place_all_bets(table):
+    while True:
+        place_bet(table)
+        another = input("\nDealer - \"Place another bet?\"\n1: Yes\n2: No\n\nChoice: ")
+        if another.strip().lower() == '1':
+            continue
+        elif another.strip().lower() == '2':
+            break
+        else:
+            print("\nDealer - \"Sorry, I didn't catch that.\"")
