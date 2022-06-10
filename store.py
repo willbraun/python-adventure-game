@@ -232,7 +232,7 @@ def sneaky_time():
                     sleep(5)
                     continue
                 if choice_2 == '2':
-                    if clerk_spot == 'busy cleaning' or clerk_spot == 'busy restocking':
+                    if clerk_spot in ['busy cleaning', 'busy restocking']:
                         sleep(1)
                         print('\n' * 30)
                         print('You succeeded! You got the hat!')
@@ -243,7 +243,7 @@ def sneaky_time():
                         get_caught()
                         break
                 if choice_2 == '3':
-                    if clerk_spot == 'busy cleaning' or clerk_spot == 'busy restocking':
+                    if clerk_spot in ['busy cleaning', 'busy restocking']:
                         sleep(1)
                         print('\n' * 30)
                         print('You succeeded! You got the fancy belt!')
@@ -275,7 +275,7 @@ def sneaky_time():
                     sleep(5)
                     continue
                 if choice_3 == '2':
-                    if clerk_spot == 'busy cleaning' or clerk_spot == 'busy restocking':
+                    if clerk_spot in ['busy cleaning', 'busy restocking']:
                         sleep(1)
                         print('\n' * 30)
                         print('You succeeded! You got the biscuits!')
@@ -286,7 +286,7 @@ def sneaky_time():
                         get_caught()
                         break
                 if choice_3 == '3':
-                    if clerk_spot == 'busy cleaning' or clerk_spot == 'busy restocking':
+                    if clerk_spot in ['busy cleaning', 'busy restocking']:
                         sleep(1)
                         print('\n' * 30)
                         print('You succeeded! You got the horse treats!')
@@ -318,7 +318,7 @@ def sneaky_time():
                     sleep(5)
                     continue
                 if choice_4 == '2':
-                    if clerk_spot == 'busy cleaning' or clerk_spot == 'busy restocking':
+                    if clerk_spot in ['busy cleaning', 'busy restocking']:
                         sleep(1)
                         print('\n' * 30)
                         print('You succeeded! You got the lipstick!')
@@ -329,7 +329,7 @@ def sneaky_time():
                         get_caught()
                         break
                 if choice_4 == '3':
-                    if clerk_spot == 'busy cleaning' or clerk_spot == 'busy restocking':
+                    if clerk_spot in ['busy cleaning', 'busy restocking']:
                         sleep(1)
                         print('\n' * 30)
                         print('You succeeded! You got The Disguise Kit!')
