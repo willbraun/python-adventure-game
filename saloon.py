@@ -1,6 +1,6 @@
 from time import sleep
 from random import choice
-from inventory import inventory
+from general import inventory
 
 sleep_val = 2
 

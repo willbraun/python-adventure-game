@@ -1,6 +1,6 @@
 from time import sleep
 import random
-from inventory import inventory
+from general import *
 
 # player enters store an is approached by the clerk.
 # given three options, right now the two options that involve talking lead to the player having three options
@@ -57,12 +57,12 @@ def fight_time():
     while True:
         sleep(2)
         print('\n' * 10)
-        print('\nFIGHT\n')
+        print(f'\n{red("FIGHT")}\n')
         print(f"Your health: {your_health}")
         print('\n' * 5)
         print(f"Clerk's health: {clerk_health}")
         print('\n' * 5)
-        print('\nYour moves:\n1.Right Hook - 5dmg\n2. Uppercut - 7dmg\n3. Yeehaw Kimchi - 10dmg')
+        print('\nYour moves:\n1. Right Hook - 5dmg\n2. Uppercut - 7dmg\n3. Yeehaw Kimchi - 10dmg')
         move = input('Choose your move:')
         if move == '1':
             clerk_health -= your_attacks['right hook']

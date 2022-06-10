@@ -1,7 +1,7 @@
 import saloon
 import store
 import stable
-from inventory import inventory
+from general import *
 
 # print description of how we ended up in the two square
 
