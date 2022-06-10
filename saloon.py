@@ -7,7 +7,7 @@ sleep_val = 2
 def saloon_loop():
     print("\nYou enter the saloon and look around. It reeks of smoke and booze.")
     while True:
-        where_to_go = input("\nWhere do you want to go?\n1: Bar\n2: Faro table\n3: Back to town square\n\nChoice: ")
+        where_to_go = input("\nWhere do you want to go?\n1: 🍻 Bar 🍻\n2: 💰 Faro Table 💰\n3: Back to town square\n\nChoice: ")
         if where_to_go == '1':
             bar()
         elif where_to_go == '2':
@@ -20,22 +20,59 @@ def saloon_loop():
 # Bar
 
 def bar():
+    order_drink()
+    chat_with_stranger()
+
+def order_drink():
     print('You go up to the bartender...')
-    drink = input('Bartenter - "Howdy, what can I get you? 1: Beer, 2: Whiskey, 3: Margarita.": ')
+    drink = input('Bartenter - "Howdy, what can I get you?\n1: Beer\n2: Whiskey\n3: Margarita\n\nChoice: ')
     if drink == '1':
-        print('You guzzle your hipstery IPA down like a fish out of water.')
+        print('\nYou guzzle your hipstery IPA down like a fish out of water.')
     elif drink == '2':
-        print('You throw back the entire bottle of whiskey in three satisfying gulps.')
+        print('\nYou throw back the entire bottle of whiskey in three satisfying gulps.')
     elif drink == '3':
-        print('You sip on your Margarita like the classy scoundrel you are.')
+        print('\nYou sip on your Margarita like the classy scoundrel you are.')
     else:
-        print('You down the water quickly for maximum hydration.')
+        print('\nYou pass, regrettably, as you need to stay focused on ditching town.')
+
+def chat_with_stranger():
+    print("\nYou scan the bar, and spy some interesting townsfolk...")
+    while True:
+        chat = input("\nWho would you like to chat with?\n1: The town drunk\n2: The old sage\n3: A cloaked woman\n4: Nobody\n\nChoice: ")
+        if chat == '1':
+            town_drunk()
+            continue
+        elif chat == '2':
+            old_man()
+            continue
+        elif chat == '3':
+            cloaked_woman()
+            continue
+        elif chat == '4':
+            break
+        else:
+            print("That person isn't here.")
+
+
+
+def town_drunk():
+    print('town drunk')
+
+def old_man():
+    print('old man')
+
+def cloaked_woman():
+    print('cloaked woman')
+
+
+
+
 
 # Faro table
 
 def faro_table():
     print("""\nYou take a seat at the faro table. It's a quiet day so it's just you and the dealer.
-    \nDealer - \"Welcome! Faro is popular card game around these parts. Would you like me to explain the rules?\"""")
+    \nDealer - \"Welcome! Faro is popular card game around these parts, where countless brave souls such as yourself have won and lost fortunes. Would you like me to explain the rules?\"""")
     hear_rules()
     play_faro()
 
