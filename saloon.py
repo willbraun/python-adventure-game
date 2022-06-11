@@ -194,16 +194,22 @@ def play_faro():
     card_values = ('A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K')
     table = dict.fromkeys(card_values, 0)
     display_table(table)
+    bet_this_round = 1
 
     burn_card(card_values)
-    place_all_bets(table)
     while True: 
-        display_table(table)
-        [dealer, player] = deal_cards(card_values)
-        handle_money(dealer, player, table)
+        [dealer, player] = determine_next_cards(list(table.keys()))
+        print(bet_this_round)
+        if bet_this_round == 1:
+            place_all_bets(table, dealer, player)
+
+        deal_cards(dealer, player)
+        handle_money(table, dealer, player)
         display_table(table)
 
-        if not next_round(table):
+        bet_this_round = next_round()
+        if bet_this_round == 3:
+            cash_out(table)
             break
 
 def draw_card(cards):
@@ -212,9 +218,22 @@ def draw_card(cards):
 def burn_card(cards):
     print(f'\nBurned card: {draw_card(cards)}')
 
-def place_bet_card(table):
+def create_card_list(table, dealer, player):
+    cards = list(table.keys())
+    if can_count_cards:
+        if dealer == player:
+            cards[cards.index(player)] = set_color(player, yellow)
+        else:
+            cards[cards.index(dealer)] = set_color(dealer, red)
+            cards[cards.index(player)] = set_color(player, green)
+            
+    return ' '.join(cards)
+
+def place_bet_card(table, dealer, player):
     while True:
-        card = input("\nWhat card would you like to bet on? Enter one of the following:\nA 2 3 4 5 6 7 8 9 10 J Q K\n\nCard: ").strip().upper()
+        card_list = create_card_list(table, dealer, player)
+
+        card = input(f"\nWhat card would you like to bet on? Enter one of the following:\n{card_list}\n\nCard: ").strip().upper()
         
         if not card in table.keys():
             print("\nWe don't have that card here, try again")
@@ -222,9 +241,9 @@ def place_bet_card(table):
         break
     return card  
 
-def place_bet_amount(table):
+def place_bet_amount():
     while True:
-        amount = input(f"\nHow much money do you wager? Enter a number.\n(Current net worth: {inventory['money']})\n\nAmount: ")
+        amount = input(f"\nHow much money do you wager? Enter a number.\n(Current net worth: ${inventory['money']})\n\nAmount: ")
         
         try:
             amount_number = int(amount)
@@ -245,6 +264,11 @@ def place_bet_amount(table):
         break
     return amount_number
 
+def determine_next_cards(cards):
+    dealer = draw_card(cards)
+    player = draw_card(cards)
+    return [dealer, player]
+
 def display_table(table):
     print('\n---------- Faro Table ----------')
     print(*table.keys())
@@ -252,15 +276,16 @@ def display_table(table):
     print('--------------------------------')
     # Format more nicely with table import
 
-def place_bet(table):
-    card = place_bet_card(table)
-    amount = place_bet_amount(table)
+def place_bet(table, dealer, player):
+    card = place_bet_card(table, dealer, player)
+    amount = place_bet_amount()
     table[card] += amount
     inventory['money'] -= amount
 
-def place_all_bets(table):
+def place_all_bets(table, dealer, player):
+    
     while inventory['money'] > 0:
-        place_bet(table)
+        place_bet(table, dealer, player)
         display_table(table)
         if not inventory['money'] > 0:
             break
@@ -272,18 +297,14 @@ def place_all_bets(table):
         else:
             print("\nInvalid input")
 
-def deal_cards(cards):
-    dealer = draw_card(cards)
-    player = draw_card(cards)
+def deal_cards(dealer, player):
     sleep(sleep_val)
     print(f'\nDealer card: {dealer}')
     sleep(sleep_val)
     print(f'Player card: {player}')
     sleep(sleep_val)
 
-    return [dealer, player]
-
-def handle_money(dealer, player, table):
+def handle_money(table, dealer, player):
     if dealer == player:
         table[player] = try_int(table[player] * 0.5)
         return
@@ -299,24 +320,17 @@ def try_int(num):
     return num
 
 def cash_out(table):
-    inventory['money'] += sum(table.values())
-    print(f"\nYour net worth is now {inventory['money']}")
+    winnings = sum(table.values())
+    print(f"\nCashed out ${winnings}")
+    inventory['money'] += winnings
+    print(f"Your net worth is now ${inventory['money']}")
 
-def next_round(table):
-    play_on = True
+def next_round():
     while True:
         play_again = input('1: Place another bet\n2: Let dealer deal\n3: Cash out\n\nChoice: ')
-        if play_again == '1':
-            place_all_bets(table)
-            break
-        elif play_again == '2':
-            break
-        elif play_again == '3':
-            cash_out(table)
-            play_on = False
-            break
-        else:
+        try:
+            return int(play_again)
+        except:
             print('\nInvalid input')
-    return play_on
 
 # function to color loss red, half loss yellow, and win green with background AND text color
