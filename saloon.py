@@ -2,7 +2,17 @@ from time import sleep
 from random import choice
 from general import *
 
-# Add description of bar and faro table for readers of file
+# The player enters the saloon, and can choose to either go to the bar or play faro
+# Faro is a popular gambling game on the frontier before poker came around
+# If the player goes to the bar, they must order a drink, then they have the option to chat with someone
+# The town drunk tells how he got caught cheating at faro, but isn't necessary for the gameplay
+# The old man gives you a hint that you need to count cards to win at faro, and tells you his name which is important to know
+# The cloaked woman requests the name of the person who sent you.
+# You must enter the name correctly for her to help you
+# If you do, she will offer to train you in counting cards for a small fee
+# If you accept, when you go to the faro table, you will see the card that you should bet on
+# This allows the player to win lots of money, which can be used to buy the disguise or the stagecoach ticket
+# If the player goes to the faro table before being trained by the woman, the player can still play but they will not know which card to guess
 
 sleep_val = 2
 
@@ -166,7 +176,11 @@ def faro_table():
     print(f"""\nYou take a seat at the faro table. It's a quiet day so it's just you and the dealer.
     \n{set_color('Dealer', cyan)}: \"Welcome! Faro is popular card game around these parts, where countless brave souls such as yourself have won and lost fortunes. Would you like me to explain the rules?\"""")
     hear_rules()
-    play_faro()
+
+    if inventory['money'] > 0:
+        play_faro()
+    else:
+        print(f"\n{set_color('Dealer', cyan)}: Sorry, it takes money to make money! Come back when you have some money to bet.")
 
 def hear_rules():
     option = input("\n1: Sure! I'm a little rusty.\n2: No thanks, I know what I'm doing.\n\nChoice: ")
@@ -322,6 +336,9 @@ def place_bet(table, dealer, player):
     inventory['money'] -= amount
 
 def place_all_bets(table, dealer, player):
+    if inventory['money'] == 0:
+        print(f"\n{set_color('Dealer', cyan)}: All of your money is already on the table. I'll go ahead and deal.")
+        return
     while inventory['money'] > 0:
         place_bet(table, dealer, player)
         display_table(table)
