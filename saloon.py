@@ -156,14 +156,10 @@ def pay_woman():
         print("\nCloaked woman - \"Sorry, no discounts today.\"")
 
 def training_session():
-    print("\nCloaked woman - Thank you very much, lets begin!")
+    print(f"\nCloaked woman - Thank you very much, lets begin!\n(Your net worth is now ${inventory['money']})")
     print("\nThe woman pulls out a deck of cards and a pencil, and grabs a napkin from the bar. You spend the rest of the night and the following day sitting at the bar in intense study, since your wallet and freedom depend on it. You leave feeling like you can predict the future, and you can't wait to head to the faro table...")
     global can_count_cards
     can_count_cards = True
-
-
-
-# ADD COUNTING CARD MODE TO FARO GAME
 
 ### Faro table ###
 
