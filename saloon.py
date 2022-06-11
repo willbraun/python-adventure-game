@@ -195,7 +195,7 @@ def play_faro():
     burn_card(card_values)
     while True: 
         [dealer, player] = determine_next_cards(list(table.keys()))
-        print(bet_this_round)
+
         if bet_this_round == 1:
             place_all_bets(table, dealer, player)
 
@@ -268,19 +268,20 @@ def determine_next_cards(cards):
 def display_table(table):
     [cards, bets] = space_cards_and_bets(table)
 
-    top_border_side = ('-'*((len(cards) - 10) // 2))
+    title = ' Faro Table '
+    bottom_border = ('-'*(len(cards)))
+    top_left_border = ('-'*((len(bottom_border) - len(title)) // 2))
+    top_right_border = ('-'*(len(bottom_border) - len(top_left_border) - len(title)))
 
-    print(f'\n{top_border_side} Faro Table {top_border_side}')
-    print('',cards)
-    print('',bets)
-    print('-'*(len(cards) + 2))
+    print(f'\n{top_left_border}{title}{top_right_border}\n{cards}\n{bets}\n{bottom_border}')
 
 def space_cards_and_bets(table):
-    cards = []
-    bets = []
+    cards = [' ']
+    bets = [' ']
     for key, value in table.items():
         card = str(key)
-        bet = str(value)
+        bet = str(value) if value == 0 else '$' + str(value)
+
         if len(card) == len(bet):
             pass
         elif len(card) < len(bet):
@@ -288,13 +289,18 @@ def space_cards_and_bets(table):
         else:
             bet = space_equally(bet, card)
 
+        if bet[0] == '$':
+            bet = set_color(bet, green)
+
         cards.append(card)
         bets.append(bet)
-
+    
+    cards.append(' ')
+    bets.append(' ')
     cards = ' | '.join(cards)
     bets = ' | '.join(bets)
 
-    return [cards, bets]
+    return [cards.strip(), bets.strip()]
 
 def space_equally(short, long):
     while len(short) < len(long):
@@ -308,17 +314,22 @@ def place_bet(table, dealer, player):
     inventory['money'] -= amount
 
 def place_all_bets(table, dealer, player):
-    
     while inventory['money'] > 0:
         place_bet(table, dealer, player)
         display_table(table)
         if not inventory['money'] > 0:
             break
+        
+        if not another_bet():
+            break
+
+def another_bet():
+    while True:
         another = input("\nPlace another bet?\n1: Yes\n2: No\n\nChoice: ")
         if another.strip() == '1':
-            continue
+            return True
         elif another.strip() == '2':
-            break
+            return False
         else:
             print("\nInvalid input")
 
@@ -352,7 +363,7 @@ def cash_out(table):
 
 def next_round():
     while True:
-        play_again = input('1: Place another bet\n2: Let dealer deal\n3: Cash out\n\nChoice: ')
+        play_again = input('\n1: Place another bet\n2: Let dealer deal\n3: Cash out\n\nChoice: ')
         try:
             return int(play_again)
         except:
