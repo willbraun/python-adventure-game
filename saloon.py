@@ -40,7 +40,7 @@ def order_drink():
 def chat_with_stranger():
     print("\nYou scan the bar, and spy some interesting townsfolk...")
     while True:
-        chat = input("\nWho would you like to chat with?\n1: The town drunk\n2: The old man\n3: The cloaked woman\n4: Nobody\n\nChoice: ")
+        chat = input(f"\nWho would you like to chat with?\n1: The {set_color('town drunk', bright_magenta)}\n2: The {set_color('old man', blue)}\n3: The {set_color('cloaked woman', yellow)}\n4: Nobody\n\nChoice: ")
         if chat == '1':
             town_drunk()
             continue
@@ -58,14 +58,14 @@ def chat_with_stranger():
 def town_drunk():
     print(f"""\n{set_color("Town drunk", bright_magenta)}: \"Well howwwwdy-do to you! You look pretty beat up, and I know that from experience. Been kicked out of this bar many-a-time -- they only let me back in since I'm a good customer. Want to hear how I got kicked out last time?\"""")
     town_drunk_question()
-    print("""
+    print(f"""
     \"So the story begins a week ago. Or was it last night? I can't remember. 
 
     Anyway, I order my rye and head straight to the faro table, and finish it before I sit down.
 
     I have this trick I'm perfecting, where I make a bet, see what cards are dealt, and if I lose the bet I distract the dealer by yelling "Oh my gosh, is that Abraham Lincoln in our saloon!?" -- and then I super-sneakily move my coins to the winning number.
 
-    My snitch brother told on me and the dealer's henchmen had me swiftly removed. I thought they'd never let me back, but my bar tab keeps this establishment afloat so they can't get rid of me.
+    My snitch brother told on me and the {set_color("dealer's", cyan)} henchmen had me swiftly removed. I thought they may never let me back, but my bar tab keeps this establishment afloat so they can't get rid of me.
 
     Faro is a fickle game, I love it but I know I'll be broke soon. I robbed a bank when I was a young man but my funds are dwindling. 
 
@@ -93,10 +93,9 @@ def old_man():
     
     Faro is all about card-counting. You must keep track of what's played to predict the future.
 
-    That cloaked woman in the corner, she's real quiet but she's the best card-counter I've ever seen.
+    The {set_color("cloaked woman", yellow)} in the corner, she's real quiet but she's the best card-counter I've ever seen.
 
-    My name is {set_color('George', green)}, tell her I sent you. I bet she has some good tips.
-    \"
+    My name is {set_color('George', green)}, tell her I sent you. I bet she has some good tips.\"
     """)
     else:
         print(f"\n{set_color('Old man', blue)}: \"Well that's too bad, I thought you'd be interested.\"")
@@ -124,13 +123,13 @@ def cloaked_woman():
 
 def correct_name():
     print(f"""\n{set_color('Cloaked woman', yellow)}:
-    \"Oh, George sent you! Pardon me. I presume he sent you to learn how to count cards in faro. 
+    \"Oh, {set_color('George', blue)} sent you! Pardon me. I presume he sent you to learn how to count cards in faro. 
     
     We're old friends, he's jealous that I can still read the deck like a book.
     
-    I can train you, but my services aren't free. 
+    I can train you, but my services aren't free. Some say my skills are ✨magical✨...
     
-    For $50, I promise that you'll be able to count cards and predict the cards that appear, BEFORE the dealer draws them.
+    For $50, I promise that you'll be able to count cards so you can predict the cards that appear, BEFORE the dealer draws them.
 
     What do you say?\"
     """)
@@ -157,7 +156,7 @@ def pay_woman():
 
 def training_session():
     print(f"\n{set_color('Cloaked woman', yellow)}: Thank you very much, lets begin!\n(Your net worth is now ${inventory['money']})")
-    print(f"""\nThe woman pulls out a deck of cards and a pencil, and grabs a napkin from the bar. You spend the rest of the night and the following day sitting at the bar in intense study, since your wallet and freedom depend on it. You leave feeling like you can predict the future, and {set_color("you can't wait to head to the faro table...", green)}""")
+    print(f"""\nShe pulls out a deck of cards and a pencil, and grabs a napkin from the bar. You spend the rest of the night and the following day sitting at the bar in intense study, since your wallet and freedom depend on it. You leave feeling like you can predict the future, and {set_color("you can't wait to head to the faro table...", green)}""")
     global can_count_cards
     can_count_cards = True
 
@@ -187,16 +186,16 @@ def hear_rules():
         print(f"{set_color('Dealer', cyan)}: Well, alrighty then!")
 
 def play_faro():
-    card_values = ('A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K')
-    table = dict.fromkeys(card_values, 0)
+    table = create_new_table()
+    cards = list(table.keys())
     display_table(table)
     bet_this_round = 1
 
-    burn_card(card_values)
+    burn_card(cards)
     while True: 
-        [dealer, player] = determine_next_cards(list(table.keys()))
+        [dealer, player] = determine_next_cards(cards)
 
-        if bet_this_round == 1:
+        if bet_this_round == 1 or bet_this_round == 3:
             place_all_bets(table, dealer, player)
 
         deal_cards(dealer, player)
@@ -206,7 +205,16 @@ def play_faro():
         bet_this_round = next_round()
         if bet_this_round == 3:
             cash_out(table)
+            table = create_new_table()
+            display_table(table)
+        if bet_this_round == 4:
+            cash_out(table)
+            leave_table()
             break
+
+def create_new_table():
+    card_values = ('A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K')
+    return dict.fromkeys(card_values, 0)
 
 def draw_card(cards):
     return choice(cards)
@@ -385,14 +393,20 @@ def try_int(num):
     return num
 
 def cash_out(table):
+    sleep(sleep_val)
     winnings = sum(table.values())
     print(f"\nCashed out ${winnings}")
     inventory['money'] += winnings
     print(f"Your net worth is now ${inventory['money']}")
+    sleep(sleep_val)
+
+def leave_table():
+    print(f"\n{set_color('Dealer', cyan)}: Thanks for playing!")
+    sleep(sleep_val)
 
 def next_round():
     while True:
-        play_again = input('\n1: Place another bet\n2: Let dealer deal\n3: Cash out\n\nChoice: ')
+        play_again = input('\n1: Place another bet\n2: Let dealer deal\n3: Cash out and place another bet\n4: Cash out and leave\n\nChoice: ')
         try:
             return int(play_again)
         except:
