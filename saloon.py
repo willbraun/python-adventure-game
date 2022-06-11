@@ -3,11 +3,11 @@ from random import choice
 from general import *
 
 # The player enters the saloon, and can choose to either go to the bar or play faro
-# Faro is a popular gambling game on the frontier before poker came around
+# Faro was a popular gambling game on the frontier before poker came around
 # If the player goes to the bar, they must order a drink, then they have the option to chat with someone
-# The town drunk tells how he got caught cheating at faro, but isn't necessary for the gameplay
+# The town drunk tells how he got caught cheating at faro, but isn't necessary for gameplay
 # The old man gives you a hint that you need to count cards to win at faro, and tells you his name which is important to know
-# The cloaked woman requests the name of the person who sent you.
+# The cloaked woman requests the name of the person who sent you (the old man).
 # You must enter the name correctly for her to help you
 # If you do, she will offer to train you in counting cards for a small fee
 # If you accept, when you go to the faro table, you will see the card that you should bet on
