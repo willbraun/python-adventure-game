@@ -27,7 +27,7 @@ def bar():
 
 def order_drink():
     print('You go up to the bartender...')
-    drink = input('Bartenter - "Howdy, what can I get you?\"\n1: Beer\n2: Whiskey\n3: Margarita\n\nChoice: ')
+    drink = input('Bartenter: "Howdy, what can I get you?\"\n1: Beer\n2: Whiskey\n3: Margarita\n\nChoice: ')
     if drink == '1':
         print('\nYou guzzle your hipstery IPA down like a fish out of water.')
     elif drink == '2':
@@ -325,7 +325,7 @@ def place_all_bets(table, dealer, player):
 
 def another_bet():
     while True:
-        another = input("\nPlace another bet?\n1: Yes\n2: No\n\nChoice: ")
+        another = input("\nPlace another bet?\n1: Yes\n2: No, let's play\n\nChoice: ")
         if another.strip() == '1':
             return True
         elif another.strip() == '2':
@@ -341,12 +341,41 @@ def deal_cards(dealer, player):
     sleep(sleep_val)
 
 def handle_money(table, dealer, player):
-    if dealer == player:
-        table[player] = try_int(table[player] * 0.5)
+    if dealer == player and table[player] != 0:
+        split_bet(table, player)
         return
     
+    spoke = False
+    if table[dealer] != 0:
+        lose_bet(table, dealer)
+        spoke = True
+
+    if table[player] != 0:
+        win_bet(table, player)
+        spoke = True
+    
+    if not spoke:
+        print(f"\nDealer: \"No changes for your bets this round.\"")
+        sleep(3)
+    
+def split_bet(table, player):
+    sleep(sleep_val)
+    new_value = try_int(table[player] * 0.5)
+    print(f"\nDealer: \"We drew the same card, so we'll split your bet. I'll take ${new_value}.\"")
+    table[player] = new_value
+    sleep(3)
+    
+def lose_bet(table, dealer):
+    sleep(sleep_val)
+    print(f"\nDealer: \"Thank you for your ${table[dealer]} on {dealer}.\"")
     table[dealer] = 0
+    sleep(3)
+
+def win_bet(table, player):
+    sleep(sleep_val)
+    print(f"\nDealer: \"You hit your bet of ${table[player]} on {player}!\"")
     table[player] *= 2
+    sleep(3)
 
 def try_int(num):
     try:
@@ -368,5 +397,3 @@ def next_round():
             return int(play_again)
         except:
             print('\nInvalid input')
-
-# function to color loss red, half loss yellow, and win green with background AND text color
