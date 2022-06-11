@@ -3,13 +3,15 @@ import random
 from general import *
 
 # player enters store an is approached by the clerk.
-# given three options, right now the two options that involve talking lead to the player having three options
+# given three options, right now the two options that involve talking lead to the player having a separate set of three options
 # the player then can choose from directly asking for a disguise, which leads to requiring a hefty sum for it
 # for the second option the player can beat around the bush asking for a disguise,
-# which gives the clerk the impression you need some cosmetic help, leading him to take pity on you and offer the disguise kit for a discounted price
+# which gives the clerk the impression you need some cosmetic help, leading him to take pity on you and offer the disguise kit for a "discounted" price
 # the third option leads you to fight the clerk, an intense battle of fisticuffs!!! 💪🏼💪🏼💪🏼💪🏼
+# if you beat the clerk, you take his money ($500) and the disguise kit!!!
+# But if you lose, the clerk takes EVERYTHING YOU HAD 😭
 #
-# if the player had decided not to talk, this enters ✨ SNEAKY TIME ✨
+# if the player had decided not to talk to the clerk, this enters ✨ SNEAKY TIME ✨
 # the player must keep an eye on the clerk's whereabouts and make decisions based on the clerk's position
 # if the clerk is busy doing something, the player has the option of pocketing an item
 # if the clerk is not cleaning or busy, he is at the register or wandering about, keeping a watchful eye on you.
@@ -23,7 +25,7 @@ def get_caught():
     global sneaky
     sleep(1)
     print('\n' * 30)
-    print('YOU GOT CAUGHT! The clerk kicked you out of the store')
+    print('YOU GOT CAUGHT! The clerk kicked you out of the store and took all of your belongings!')
     inventory['misc'] = []
     inventory['disguise'] = []
     sneaky = False
@@ -95,8 +97,8 @@ def fight_time():
             inventory['money'] += 500
             sleep(1)
             print('\n' * 30)
-            print(f'You have {inventory["money"]} gold')
-            print(f"""YOU WON!!! You take the disguise kit as your reward and all of the {set_color("Clerk's ", purple)} money.\nYou walk back to the town square...""")
+            print(f'You have ${inventory["money"]}')
+            print(f"""YOU WON!!! You take The Disguise Kit as your reward and all of the {set_color("Clerk's ", purple)} money.\nYou walk back to the town square...""")
             break
         else:
             continue
@@ -120,7 +122,7 @@ def ask_clerk():
             print('He finally comes back with a disguise kit in his hands.')
             sleep(2)
             print(
-                f'\n\{set_color("Clerk", purple)}: Here is what we have. I\'m asking a fair bit, at 300 gold. Take it or leave it.')
+                f'\n{set_color("Clerk", purple)}: Here is what we have. I\'m asking a fair bit, at $300. Take it or leave it.')
             print('\n')
             print(f'Money: {inventory["money"]}')
             sleep(2)
@@ -130,8 +132,8 @@ def ask_clerk():
                 sleep(2)
                 break
             else:
-                print(f'You have {inventory["money"]} gold')
-                buy_expensive_kit = input('Buy this disguise kit for 300 gold?:\n1. Yes\n2. No\n\nChoice:')
+                print(f'You have ${inventory["money"]}')
+                buy_expensive_kit = input('Buy this disguise kit for $300?:\n1. Yes\n2. No\n\nChoice:')
                 if buy_expensive_kit == '1':
                     inventory['money'] -= 300
                     inventory['disguise'].append('The Disguise Kit')
@@ -153,15 +155,15 @@ def ask_clerk():
             print('You immediately see in the makeup section of the store ✨ THE DISGUISE KIT ✨\nYou hold up the kit to the clerk and ask,\n"How much for this thing?"')
             sleep(4)
             print('\n' * 30)
-            print(f'{set_color("Clerk", purple)}: Well, those things are pretty hard to come by nowadays. I\'d sell that to ya for 250 Gold...')
+            print(f'{set_color("Clerk", purple)}: Well, those things are pretty hard to come by nowadays. I\'d sell that to ya for $250...')
             sleep(3)
             if not inventory['money'] >= 250:
                 print('You don\'t have enough money! You thank the clerk for his time and walk back to the town square.')
                 sleep(2)
                 break
             else: 
-                print(f'You have {inventory["money"]} gold')
-                buy_kit = input('Buy this disguise kit for 250 gold?:\n1. Yes\n2. No\n\nChoice:')
+                print(f'You have ${inventory["money"]}')
+                buy_kit = input('Buy this disguise kit for $250?:\n1. Yes\n2. No\n\nChoice:')
                 if buy_kit == '1':
                     inventory['money'] -= 250
                     inventory['disguise'].append('The Disguise Kit')
@@ -360,7 +362,7 @@ It's quite cluttered on the inside, filled with equal amounts of junk and seemin
 You are approached by the store {set_color("Clerk", purple)}.""")
         sleep(6)
         print('\n' * 20)
-        print(f'{set_color("Clerk", purple)}: "Hey there mister! How ya doing this fine day?"')
+        print(f'{set_color("Clerk", purple)}: "Hey there partner! How ya doing this fine day?"')
         print('\n')
         print('1. "I\'m doing fine, how are you?"')
         print('2. "Good. What all do you have here?"')
