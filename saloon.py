@@ -266,11 +266,40 @@ def determine_next_cards(cards):
     return [dealer, player]
 
 def display_table(table):
-    print('\n---------- Faro Table ----------')
-    print(*table.keys())
-    print(*table.values())
-    print('--------------------------------')
-    # Format more nicely with table import
+    [cards, bets] = space_cards_and_bets(table)
+
+    top_border_side = ('-'*((len(cards) - 10) // 2))
+
+    print(f'\n{top_border_side} Faro Table {top_border_side}')
+    print('',cards)
+    print('',bets)
+    print('-'*(len(cards) + 2))
+
+def space_cards_and_bets(table):
+    cards = []
+    bets = []
+    for key, value in table.items():
+        card = str(key)
+        bet = str(value)
+        if len(card) == len(bet):
+            pass
+        elif len(card) < len(bet):
+            card = space_equally(card, bet)
+        else:
+            bet = space_equally(bet, card)
+
+        cards.append(card)
+        bets.append(bet)
+
+    cards = ' | '.join(cards)
+    bets = ' | '.join(bets)
+
+    return [cards, bets]
+
+def space_equally(short, long):
+    while len(short) < len(long):
+        short = ' ' + short
+    return short
 
 def place_bet(table, dealer, player):
     card = place_bet_card(table, dealer, player)
