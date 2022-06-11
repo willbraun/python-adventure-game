@@ -90,7 +90,10 @@ def fight_time():
             inventory['disguise'] = []
             sleep(1)
             print('\n' * 30)
-            print(f'You LOST. The {set_color("Clerk", purple)} throws you out of his store...')
+            print(f"Your money: ${inventory['nmoney']}")
+            print(f"Your inventory: empty :(")
+            print(f'You LOST. The {set_color("Clerk", purple)} throws you out of his store and takes everything from you...')
+            sleep(3)
             break
         elif clerk_health <= 0:
             inventory['disguise'].append('The Disguise Kit')
@@ -98,7 +101,9 @@ def fight_time():
             sleep(1)
             print('\n' * 30)
             print(f'You have ${inventory["money"]}')
+            print(f"Your inventory: {inventory['disguise']}")
             print(f"""YOU WON!!! You take The Disguise Kit as your reward and all of the {set_color("Clerk's ", purple)} money.\nYou walk back to the town square...""")
+            sleep(3)
             break
         else:
             continue
