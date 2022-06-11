@@ -27,7 +27,7 @@ def bar():
 
 def order_drink():
     print('You go up to the bartender...')
-    drink = input('Bartenter: "Howdy, what can I get you?\"\n1: Beer\n2: Whiskey\n3: Margarita\n\nChoice: ')
+    drink = input(f'{set_color("Bartender", bright_green)}: "Howdy, what can I get you?\"\n1: Beer\n2: Whiskey\n3: Margarita\n\nChoice: ')
     if drink == '1':
         print('\nYou guzzle your hipstery IPA down like a fish out of water.')
     elif drink == '2':
@@ -40,7 +40,7 @@ def order_drink():
 def chat_with_stranger():
     print("\nYou scan the bar, and spy some interesting townsfolk...")
     while True:
-        chat = input("\nWho would you like to chat with?\n1: The town drunk\n2: The old sage\n3: The cloaked woman\n4: Nobody\n\nChoice: ")
+        chat = input("\nWho would you like to chat with?\n1: The town drunk\n2: The old man\n3: The cloaked woman\n4: Nobody\n\nChoice: ")
         if chat == '1':
             town_drunk()
             continue
@@ -56,7 +56,7 @@ def chat_with_stranger():
             print("That person isn't here.")
 
 def town_drunk():
-    print("""\nTown drunk - \"Well howwwwdy-do to you! You look pretty beat up, and I know that from experience. Been kicked out of this bar many-a-time -- they only let me back in since I'm a good customer. Want to hear how I got kicked out last time?\"""")
+    print(f"""\n{set_color("Town drunk", bright_magenta)}: \"Well howwwwdy-do to you! You look pretty beat up, and I know that from experience. Been kicked out of this bar many-a-time -- they only let me back in since I'm a good customer. Want to hear how I got kicked out last time?\"""")
     town_drunk_question()
     print("""
     \"So the story begins a week ago. Or was it last night? I can't remember. 
@@ -75,12 +75,12 @@ def town_drunk():
 def town_drunk_question():
     town_drunk_answer = input("\n1: Sure!\n2: Not today\n\nChoice: ")
     if town_drunk_answer == '2':
-        print("Town drunk - Oh sure ya do, I'll tell you anyway")
+        print(f"{set_color('Town drunk', bright_magenta)}: Oh sure ya do, I'll tell you anyway")
     else:
-        print("Town drunk - Yippee!")
+        print(f"{set_color('Town drunk', bright_magenta)}: Yippee!")
 
 def old_man():
-    print("""\nOld man - 
+    print(f"""\n{set_color("Old man", blue)}:
     \"Say, you must be new in town. I've seen just about everyone west of the Mississippi pass through this here saloon, I reckon.
     
     I see you eyeing that faro table. I used to be a decent player myself, but I'm not as sharp as I once was. 
@@ -88,7 +88,7 @@ def old_man():
     There's skill to it, you know. Want to know the secret?\"
     """)
     if old_man_question():
-        print(f"""\nOld man - 
+        print(f"""\n{set_color("Old man", blue)}: 
     \"Excellent! Now don't go off and share this, I'm only telling you this since you look like you could use a few bucks.
     
     Faro is all about card-counting. You must keep track of what's played to predict the future.
@@ -99,7 +99,7 @@ def old_man():
     \"
     """)
     else:
-        print("\nOld man - \"Well that's too bad, I thought you'd be interested.\"")
+        print(f"\n{set_color('Old man', blue)}: \"Well that's too bad, I thought you'd be interested.\"")
 
 def old_man_question():
     response = True
@@ -111,19 +111,19 @@ def old_man_question():
             response = False
             break
         else:
-            print("\nOld man - \"I can never understand the slang of the youth... come again?\"")
+            print(f"\n{set_color('Old man', blue)}: \"I can never understand the slang of the youth... come again?\"")
     return response
 
 def cloaked_woman():
-    print("""\nCloaked woman - \"...um, do I know you? I won't speak to you unless someone referred you to me. Who sent you?\"""")
+    print(f"""\n{set_color("Cloaked woman", yellow)}: \"...um, do I know you? I won't speak to you unless someone referred you to me. Who sent you?\"""")
     name = input("\nEnter name: ")
     if name.strip().lower() == "george":
         correct_name()
     else:
-        print("\nCloaked woman - \"Hmm I don't know that person. I think you should leave.\" 🙂")
+        print(f"\n{set_color('Cloaked woman', yellow)}: \"Hmm I don't know that person. I think you should leave.\" 🙂")
 
 def correct_name():
-    print("""\nCloaked woman - 
+    print(f"""\n{set_color('Cloaked woman', yellow)}:
     \"Oh, George sent you! Pardon me. I presume he sent you to learn how to count cards in faro. 
     
     We're old friends, he's jealous that I can still read the deck like a book.
@@ -143,36 +143,36 @@ def cloaked_woman_question():
             pay_woman()
             break
         elif cloaked_woman_answer == '2':
-            print("\nCloaked woman - \"Alright, your loss! The offer is open if you change your mind.\"")
+            print(f"\n{set_color('Cloaked woman', yellow)}: \"Alright, your loss! The offer is open if you change your mind.\"")
             break
         else:
-            print("\"Cloaked woman - I'm sorry, come again?\"")
+            print(f"\"{set_color('Cloaked woman', yellow)}: I'm sorry, come again?\"")
 
 def pay_woman():
     if inventory['money'] > 50:
         inventory['money'] -= 50
         training_session()
     else:
-        print("\nCloaked woman - \"Sorry, no discounts today.\"")
+        print(f"\n{set_color('Cloaked woman', yellow)}: \"Sorry, no discounts today.\"")
 
 def training_session():
-    print(f"\nCloaked woman - Thank you very much, lets begin!\n(Your net worth is now ${inventory['money']})")
-    print("\nThe woman pulls out a deck of cards and a pencil, and grabs a napkin from the bar. You spend the rest of the night and the following day sitting at the bar in intense study, since your wallet and freedom depend on it. You leave feeling like you can predict the future, and you can't wait to head to the faro table...")
+    print(f"\n{set_color('Cloaked woman', yellow)}: Thank you very much, lets begin!\n(Your net worth is now ${inventory['money']})")
+    print(f"""\nThe woman pulls out a deck of cards and a pencil, and grabs a napkin from the bar. You spend the rest of the night and the following day sitting at the bar in intense study, since your wallet and freedom depend on it. You leave feeling like you can predict the future, and {set_color("you can't wait to head to the faro table...", green)}""")
     global can_count_cards
     can_count_cards = True
 
 ### Faro table ###
 
 def faro_table():
-    print("""\nYou take a seat at the faro table. It's a quiet day so it's just you and the dealer.
-    \nDealer - \"Welcome! Faro is popular card game around these parts, where countless brave souls such as yourself have won and lost fortunes. Would you like me to explain the rules?\"""")
+    print(f"""\nYou take a seat at the faro table. It's a quiet day so it's just you and the dealer.
+    \n{set_color('Dealer', cyan)}: \"Welcome! Faro is popular card game around these parts, where countless brave souls such as yourself have won and lost fortunes. Would you like me to explain the rules?\"""")
     hear_rules()
     play_faro()
 
 def hear_rules():
     option = input("\n1: Sure! I'm a little rusty.\n2: No thanks, I know what I'm doing.\n\nChoice: ")
     if option == '1':
-        print("""\nDealer - Splendid! Here are the rules.\n
+        print(f"""\n{set_color('Dealer', cyan)}: Here are the rules.\n
         You may place bets on any card value for ace, 2, all the way to king
         You can place multiple bets at a time!
         For the first turn, I will burn a card from the deck and show it face up.
@@ -184,7 +184,7 @@ def hear_rules():
         \nGot it? Great!
         """)
     elif option == '2':
-        print("Dealer - Well, alrighty then!")
+        print(f"{set_color('Dealer', cyan)}: Well, alrighty then!")
 
 def play_faro():
     card_values = ('A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K')
@@ -232,7 +232,7 @@ def place_bet_card(table, dealer, player):
         card = input(f"\nWhat card would you like to bet on? Enter one of the following:\n{card_list}\n\nCard: ").strip().upper()
         
         if not card in table.keys():
-            print("\nWe don't have that card here, try again")
+            print(f"\n{set_color('Dealer', cyan)}: We don't have that card here, try again.")
             continue
         break
     return card  
@@ -247,15 +247,15 @@ def place_bet_amount():
             try:
                 amount_number = float(amount)
             except:
-                print("\nDealer - \"Sorry, I didn't catch that.\"")
+                print(f"\n{set_color('Dealer', cyan)}: \"Sorry, I didn't catch that.\"")
                 continue
         
         if amount_number <= 0:
-            print("\nDealer - \"Aren't you funny! Positive numbers only please.\"")
+            print(f"\n{set_color('Dealer', cyan)}: \"Aren't you funny! Positive numbers only please.\"")
             continue
 
         if amount_number > inventory['money']:
-            print("\nDealer - \"You don't have enough money for that.\"")
+            print(f"\n{set_color('Dealer', cyan)}: \"You don't have enough money for that.\"")
             continue
         break
     return amount_number
@@ -355,25 +355,25 @@ def handle_money(table, dealer, player):
         spoke = True
     
     if not spoke:
-        print(f"\nDealer: \"No changes for your bets this round.\"")
+        print(f"\n{set_color('Dealer', cyan)}: \"No changes for your bets this round.\"")
         sleep(3)
     
 def split_bet(table, player):
     sleep(sleep_val)
     new_value = try_int(table[player] * 0.5)
-    print(f"\nDealer: \"We drew the same card, so we'll split your bet. I'll take ${new_value}.\"")
+    print(f"\n{set_color('Dealer', cyan)}: \"We drew the same card, so we'll split your bet. I'll take ${new_value}.\"")
     table[player] = new_value
     sleep(3)
     
 def lose_bet(table, dealer):
     sleep(sleep_val)
-    print(f"\nDealer: \"Thank you for your ${table[dealer]} on {dealer}.\"")
+    print(f"\n{set_color('Dealer', cyan)}: \"Thank you for your ${table[dealer]} on {dealer}.\"")
     table[dealer] = 0
     sleep(3)
 
 def win_bet(table, player):
     sleep(sleep_val)
-    print(f"\nDealer: \"You hit your bet of ${table[player]} on {player}!\"")
+    print(f"\n{set_color('Dealer', cyan)}: \"You hit your bet of ${table[player]} on {player}!\"")
     table[player] *= 2
     sleep(3)
 
