@@ -31,9 +31,12 @@ print("\n --- and fast!!")
 sleep(6)
 print('\n'*5)
 print("Looking across the town's muddy, horse trodden thoroughfare you see three buildings you can enter: the saloon, the general store and the horse stable. ")
-
+sleep(3)
+print(f"\nYour net worth is ${inventory['money']}")
+sleep(3)
 while True:
-    question = input("\n Where do you want to go?\n1: Saloon\n2: Store\n3: Stable\n\nChoice: ")
+    
+    question = input("\nWhere do you want to go?\n1: Saloon\n2: Store\n3: Stable\n\nChoice: ")
     if question == '1':
         saloon.saloon_loop()
     elif question == '2':
@@ -41,4 +44,4 @@ while True:
     elif question == '3':
         stable.stable_loop()
     else:
-        break
+        print("\nThis town doesn't have that place.")

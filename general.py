@@ -1,4 +1,4 @@
-inventory = { 'money': 100, 'disguise': [], 'food': [], 'misc': []}
+inventory = { 'money': 10, 'disguise': [], 'food': [], 'misc': []}
 
 can_count_cards = False
 
