@@ -97,11 +97,44 @@ def isBoardFull(board):
         return True
 
 def the_end():
-    sleep(3)
+    sleep(1)
     print("\n"*10)
-    print("You win")
+    print('  ........::::::::::::..           .......|...............::::::::........')
+    print('     .:::::;;;;;;;;;;;:::::.... .     \   | ../....::::;;;;:::::.......')
+    print('         .        ...........   / \\_   \  |  /     ......  .     ........./\ ')
+    print("...:::../\\_  ......       ..._/'   \\\_  \###/   /\_    .../ \_.......   _// \ ")
+    print(".::::./   \\\ _   .../\      /'      \\\\#######//   \/\   //   \_   ....////   \ ")
+    print("    _/      \\\\    _/ \\\   /            \\\\###////      \////   \__  _/////     \ ")
+    print("  ./          \\\ /    \ /                \//////                 \/////")
+    print("  /              \\/                       \                         ////    ")
+    print("        x               X                      X  x             ")
+    print("     x  X  X            X                      X  x           X  x")
+    print("     xxxXxxX         x  X  X                   Xx        x    X  x")
+    print("        X             xXXxxx                   X          xxXXxXx ")
+    print("        X               X                      X             X")
+    print("------------------------------------------*----------------------------------")
+    print(" ")
+    print(" ")
+    sleep(3)
+    print("\n"*3)
+    print("You leave Durango just as that Colorado sun starts creeping down behind the mountains. ")
+    sleep(3)
+    print("\n"*2)
+    print("Sometimes freedom is given and sometimes it's earned. Today you earned it.")
+    sleep(3)
+    print("\n"*2)
+    print("It's a long and dusty 90 miles to the next town and you've got a lot more adventuring ahead of you -- you might as well get some rest.")
+    sleep(6)
+    print("\n"*2)    
+    print("You tilt your hat down over your eyes and let the stagecoach rock you to sleep.")
+    sleep(5)
+    print("\n"*5)  
+    print("- -   The End   - - ")
+    print('\n'*5)
+    sleep(10)
     exit()
 
+the_end()
 def coin_flip():
     while True:
         print(f'{set_color("Stable Master", red)}: Yur choice, call it in the air: heads or tails?')
@@ -217,6 +250,7 @@ def stable_loop():
                     else:
                         print("That's not a choice")
             if choice == "3":
+                print("\n"*5)
                 break
     else:    
                 sleep(3)
@@ -231,10 +265,10 @@ def stable_loop():
                     print("'I need a ticket for the first stagecoach leaving town.'")
                     sleep(5)
                     print("\n"*3)
-                    print(f'{set_color("Stable Master", red)}: Leaving so soon? Can\'t say I blame you. It\'ll be $10')
+                    print(f'{set_color("Stable Master", red)}: Leaving so soon? Can\'t say I blame you. Problem is the next stage coach is all full up but I uh... I\'d be willin\' to toss somebody off and give your their seat for .... say ... $500')
                     sleep(5)
                     print("\n"*3)
-                    print("'I don't have $10...'")
+                    print("'I don't have $500...'")
                     sleep(5)
                     print("\n"*5)
                     gamble = input("Would you like to\n 1: Make a wager\n 2: Beg: ")
@@ -245,7 +279,7 @@ def stable_loop():
                         sleep(5)
                         print("\n"*3)
                         print(f'{set_color("Stable Master", red)}: Why yes I am. An\' I know just the game we can play...')
-                        ttt_game
+                        ttt_game()
                     else:
                         sleep(10)
                         print("\n"*5)
