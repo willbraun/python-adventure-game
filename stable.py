@@ -134,14 +134,14 @@ def the_end():
     sleep(10)
     exit()
 
-the_end()
+
 def coin_flip():
     while True:
         print(f'{set_color("Stable Master", red)}: Yur choice, call it in the air: heads or tails?')
         print("He flips the coin- ")
         sleep(2)
         print("\n"*5)
-        guess = input("Press 1 for 'heads'\nPress 2 for 'tails': ")
+        guess = input("1: 'heads'\n2: for 'tails'\n\nChoice: ")
         if(guess == "1"):
             print("\n 'I choose heads'")
         elif(guess == "2"):
@@ -210,7 +210,7 @@ def ttt_game():
             
 
         while True:
-            answer = input(f'{set_color("Stable Master", red)}: Ya wanna play again??\'\nPress1: for yes\nPress2: for no')
+            answer = input(f'{set_color("Stable Master", red)}: Ya wanna play again??\'\n1: Yes\n2: No\n\nChoice: ')
             if answer == "1":
                 ttt_game()
             else:
@@ -224,11 +224,12 @@ def stable_loop():
         print("You enter the stable. You see the stable master working, his back is turned")
         while True:
 
-            choice = input("Would you like to: \n1: Speak to the stable master\n2: Steal his horse while he isn't looking?\n3: Leave  ")
+            choice = input("Would you like to: \n1: Speak to the stable master\n2: Steal his horse while he isn't looking\n3: Leave\n\nChoice: ")
             if choice == "1":
                     sleep(2)
                     print('\n' * 5)
                     print("You approach the stable master. He seems shocked to see you even you before you speak. You ask him about buying a horse.")
+                    print(']n'* 2)
                     print(f'{set_color("Stable Master", red)}: I recognize you!! I\'d be hung for selling a horse to a known criminal! Now leave!')
                     sleep(5)
                     print("\n"*5)
@@ -242,7 +243,7 @@ def stable_loop():
                     sleep(10)
                     print('\n' * 2)
                     print("Game Over.") 
-                    start_again = input("Press 1: to start over, \nPress 2: to exit  ")
+                    start_again = input("1: Start Over in the town square\n2: Exit\n\nChoice: ")
                     if start_again == "1":
                         break
                     elif start_again == "2":
@@ -271,7 +272,7 @@ def stable_loop():
                     print("'I don't have $500...'")
                     sleep(5)
                     print("\n"*5)
-                    gamble = input("Would you like to\n 1: Make a wager\n 2: Beg: ")
+                    gamble = input("Would you like to\n 1: Make a wager\n 2: Beg\n\nChoice: ")
                     if gamble == "1":
                         sleep(5)
                         print("\n"*3)

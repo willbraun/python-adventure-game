@@ -10,7 +10,6 @@ purple = '\033[35m' # store clerk
 cyan = '\033[36m' # faro dealer
 bright_green = '\u001b[32;1m' # bartender
 bright_magenta = '\u001b[35;1m' # town drunk
-dark_yellow = "\033[0,33m" #logo
 
 def set_color(text, color):
     return f"{color}{text}\033[0;0m"
