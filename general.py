@@ -2,7 +2,7 @@ inventory = { 'money': 10, 'disguise': [], 'food': [], 'misc': []}
 
 can_count_cards = False
 
-red = '\033[31m'
+red = '\033[31m' # stable master
 green = '\033[32m'
 yellow = '\033[33m' # cloaked woman
 blue = '\033[34m' # old man

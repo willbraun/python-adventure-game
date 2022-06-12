@@ -403,26 +403,26 @@ def handle_money(table, dealer, player):
     
     if not spoke:
         print(f"\n{set_color('Dealer', cyan)}: \"No changes for your bets this round.\"")
-        sleep(3)
+        sleep(sleep_val)
     
 def split_bet(table, player):
     sleep(sleep_val)
     new_value = try_int(table[player] * 0.5)
     print(f"\n{set_color('Dealer', cyan)}: \"We drew the same card, so we'll split your bet. I'll take ${new_value}.\"")
     table[player] = new_value
-    sleep(3)
+    sleep(sleep_val)
     
 def lose_bet(table, dealer):
     sleep(sleep_val)
     print(f"\n{set_color('Dealer', cyan)}: \"Thank you for your ${table[dealer]} on {dealer}.\"")
     table[dealer] = 0
-    sleep(3)
+    sleep(sleep_val)
 
 def win_bet(table, player):
     sleep(sleep_val)
     print(f"\n{set_color('Dealer', cyan)}: \"You hit your bet of ${table[player]} on {player}!\"")
     table[player] *= 2
-    sleep(3)
+    sleep(sleep_val)
 
 def try_int(num):
     try:
