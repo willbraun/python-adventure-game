@@ -1,6 +1,7 @@
 from re import X
 from time import sleep
 import random
+from pip import main
 from general import *
 
 board = [' ' for x in range(10)]
@@ -97,7 +98,7 @@ def isBoardFull(board):
         return True
 
 def the_end():
-    sleep(1)
+    sleep(10)
     print("\n"*10)
     print('  ........::::::::::::..           .......|...............::::::::........')
     print('     .:::::;;;;;;;;;;;:::::.... .     \   | ../....::::;;;;:::::.......')
@@ -107,12 +108,12 @@ def the_end():
     print("    _/      \\\\    _/ \\\   /            \\\\###////      \////   \__  _/////     \ ")
     print("  ./          \\\ /    \ /                \//////                 \/////")
     print("  /              \\/                       \                         ////    ")
+    print("")
     print("        x               X                      X  x             ")
     print("     x  X  X            X                      X  x           X  x")
     print("     xxxXxxX         x  X  X                   Xx        x    X  x")
     print("        X             xXXxxx                   X          xxXXxXx ")
-    print("        X               X                      X             X")
-    print("------------------------------------------*----------------------------------")
+    print("--------x---------------x-----------------*----x-------------x---------------")
     print(" ")
     print(" ")
     sleep(3)
@@ -134,14 +135,13 @@ def the_end():
     sleep(10)
     exit()
 
-
 def coin_flip():
     while True:
         print(f'{set_color("Stable Master", red)}: Yur choice, call it in the air: heads or tails?')
         print("He flips the coin- ")
         sleep(2)
         print("\n"*5)
-        guess = input("1: 'heads'\n2: for 'tails'\n\nChoice: ")
+        guess = input("1: 'heads'\n2: 'tails'\n\nChoice: ")
         if(guess == "1"):
             print("\n 'I choose heads'")
         elif(guess == "2"):
@@ -164,7 +164,7 @@ def coin_flip():
         else:
             sleep(2)
             print(f'\n{set_color("Stable Master", red)}: Ha! Not so lucky for you huh? I\'ll tell ya what. I\'ll give you another chance.')
-        break                  
+            ttt_game()                  
 
 
 def ttt_game():
@@ -174,16 +174,16 @@ def ttt_game():
         sleep(5)
         print('\n'*5)
         global board
+        board = [' ' for x in range(10)]
         print_board(board)
 
         while not(isBoardFull(board)):
             if not(winner(board, 'O')):
                 user_move()
                 print("\n"*2)
-                sleep(3)
                 print_board(board)
             else:
-                print(f'{set_color("Stable Master", red)}: Haha! I win!')
+                print(f'{set_color("Stable Master", red)}: Haha! I win! Tell ya what, that was so much fun I\'ll give ya another go at it.')
                 break
 
             if not(winner(board, 'X')):
@@ -210,11 +210,13 @@ def ttt_game():
             
 
         while True:
-            answer = input(f'{set_color("Stable Master", red)}: Ya wanna play again??\'\n1: Yes\n2: No\n\nChoice: ')
+            answer = input(f'{set_color("Stable Master", red)}: Ya wanna play again??\'\n1: Yes\n2: No (this will end your game)\n\nChoice: ')
             if answer == "1":
+                board = [' ' for x in range(10)]
                 ttt_game()
             else:
                 exit()
+
 
 
 def stable_loop():
@@ -267,26 +269,21 @@ def stable_loop():
                     sleep(5)
                     print("\n"*3)
                     print(f'{set_color("Stable Master", red)}: Leaving so soon? Can\'t say I blame you. Problem is the next stage coach is all full up but I uh... I\'d be willin\' to toss somebody off and give your their seat for .... say ... $500')
-                    sleep(5)
-                    print("\n"*3)
-                    print("'I don't have $500...'")
-                    sleep(5)
-                    print("\n"*5)
-                    gamble = input("Would you like to\n 1: Make a wager\n 2: Beg\n\nChoice: ")
-                    if gamble == "1":
-                        sleep(5)
+                    if inventory['money'] >= 500:
                         print("\n"*3)
-                        print("Are you a gamblin' man?")
+                        print("You pay the Stable Master the $500 - his eyes bulge at the sight")
+                        print(f'{set_color("Stable Master", red)}: Wow, high roller - you must\'ve done good at the faro table... ')
+                        print("\n"*2)
+                        sleep(2)
+                        print("The Stable Master hands you a ticket for the stagecoach.")
                         sleep(5)
-                        print("\n"*3)
-                        print(f'{set_color("Stable Master", red)}: Why yes I am. An\' I know just the game we can play...')
-                        ttt_game()
+                        the_end()
                     else:
-                        sleep(10)
-                        print("\n"*5)
-                        print("... I ... I really need this ticket. I'm not a begging man typically but today I am.  Please, find it in your heart to help me out.")
-                        sleep(10)
-                        print("\n"*5)
-                        print(f'{set_color("Stable Master", red)}: Quit yer blubberin\'. What if made a wager. If you win you get yer ticket, if I win I want (PLACEHOLDER)...')
-                        ttt_game()          
-
+                        sleep(5)
+                        print("\n"*3)
+                        print("'I don't have $500...'")
+                        sleep(5)
+                        print(f'{set_color("Stable Master", red)}: Well, how about a game - a game of chance and strategy?')
+                        print("\n"*3)
+                        print("'I'm listening...'")
+                        ttt_game()
