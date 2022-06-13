@@ -4,7 +4,16 @@ import random
 from pip import main
 from general import *
 
+# When the player enters the stable they have the choice to either talk to the stable master, steal his horse or leave.
+# If they talk to the stable master they will be recognized as a criminal immediately and turned away, suggesting the need for a disguise
+# If they steal the horse they will pay a heavy price.
+# If the player enters the stable with a disguise they will go unrecognized and can ask about leaving town. 
+# The price for a stagecoach ticket is very high, $500, suggesting either gambling at the Faro table or fighting with the general store clerk.
+# If you do not have the funds you can partake in a game of tic tac toe - the prize a stagecoach ticket out of town
+# If the game is a tie you will get another chance to win by flipping a coin
+
 board = [' ' for x in range(10)]
+
 
 def choose_square(mark, position):
     board[position] = mark
@@ -33,9 +42,9 @@ def user_move():
     while run:
         print("\n"*5)
         move = input(f'{set_color("Stable Master", red)}: Picka square an\' mark it with \'X\' (1-9): ')
-        try:
+        try: #keeps player from entering in non-number answer
             move = int(move)
-            if move > 0 and move < 10:
+            if move > 0 and move < 10:   
                 if open_space(move):
                     run = False
                     choose_square('X', move)
@@ -50,48 +59,48 @@ def user_move():
             print('Please type a number!')
 
 def computer_move():
-    possibleMoves = [x for x, mark in enumerate(board) if mark == ' ' and x != 0]
+    possibleMoves = [x for x, mark in enumerate(board) if mark == ' ' and x != 0] #checks to see what squares are still open
     move = 0
 
     for let in ['O', 'X']:
-        for i in possibleMoves:
-            boardCopy = board[:]
+        for i in possibleMoves: #checks for any possible moves for player and computer 
+            boardCopy = board[:] #copies the board to fill in all possible moves to find if there's a winning spot 
             boardCopy[i] = let
-            if winner(boardCopy, let):
+            if winner(boardCopy, let): #if there is a winning post that's what the computer will choose, to either win or block
                 move = i
                 return move
 
     cornersOpen = []
     for i in possibleMoves:
-        if i in [1,3,7,9]:
+        if i in [1,3,7,9]:      #checks which corners are open - randomly chooses 
             cornersOpen.append(i)
             
     if len(cornersOpen) > 0:
-        move = random_selection(cornersOpen)
+        move = random_selection(cornersOpen) #if there's just 1 it'll choose that one
         return move
 
     if 5 in possibleMoves:
-        move = 5
+        move = 5            #checks for center square
         return move
 
     edgesOpen = []
     for i in possibleMoves:
-        if i in [2,4,6,8]:
+        if i in [2,4,6,8]:      #checks for edges and does same as above
             edgesOpen.append(i)
             
     if len(edgesOpen) > 0:
         move = random_selection(edgesOpen)
         
-    return move
+    return move 
 
 def random_selection(li):
     import random
-    ln = len(li)
-    r = random.randrange(0,ln)
+    ln = len(li)        #(length) is the length of our list (li)
+    r = random.randrange(0,ln)  #creates a random number between 0-length of the list 
     return li[r]
     
 
-def isBoardFull(board):
+def full_board_check(board):
     if board.count(' ') > 1:
         return False
     else:
@@ -174,11 +183,11 @@ def ttt_game():
         sleep(5)
         print('\n'*5)
         global board
-        board = [' ' for x in range(10)]
+        board = [' ' for   x in range(10)]
         print_board(board)
 
-        while not(isBoardFull(board)):
-            if not(winner(board, 'O')):
+        while not(full_board_check(board)): #checks to see if the board is full, if there's a winner / tie
+            if not(winner(board, 'O')): #checks to see if computer won or not
                 user_move()
                 print("\n"*2)
                 print_board(board)
@@ -186,9 +195,9 @@ def ttt_game():
                 print(f'{set_color("Stable Master", red)}: Haha! I win! Tell ya what, that was so much fun I\'ll give ya another go at it.')
                 break
 
-            if not(winner(board, 'X')):
+            if not(winner(board, 'X')): #checks to see if player won or not
                 move = computer_move()
-                if move == 0:
+                if move == 0:       #checks to see if there's a tie
                     sleep(2)
                     print("\n"*2)
                     print(f'{set_color("Stable Master", red)}: Tie game?? Drats! Well... how about a different game? This is the second wildest game in the West. It\'s called: flip-a-coin!')
