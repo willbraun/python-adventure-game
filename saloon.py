@@ -177,7 +177,7 @@ def cloaked_woman_question():
 def training_session():
     print(f"\n{set_color('Cloaked woman', yellow)}: Great, lets begin!")
     sleep(sleep_val)
-    print(f"""She pulls out a deck of cards and a pencil, and grabs a napkin from the bar. You spend the rest of the night and the following day sitting at the bar in intense study, since your wallet and freedom depend on it. You feel like you can predict the future, and {set_color("you can't wait to head to the faro table...", green)}""")
+    print(f"""\nShe pulls out a deck of cards and a pencil, and grabs a napkin from the bar. You spend the rest of the night and the following day sitting at the bar in intense study, since your wallet and freedom depend on it. You feel like you can predict the future, and {set_color("you can't wait to head to the faro table...", green)}""")
     sleep(10)
     print(f"\n{set_color('Cloaked woman', yellow)}: Wait! before you go, here's a dollar. It'll be worth more to you than me.")
     sleep(sleep_val)
